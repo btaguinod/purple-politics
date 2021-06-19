@@ -1,0 +1,12 @@
+:root {
+    --purple: #8A2BE9;
+    --black: #0E1212;
+    --near-black: #292929;
+    --gray: #666666;
+    --light-gray: #E9E9E9;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

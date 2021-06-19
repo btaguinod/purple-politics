@@ -1,0 +1,41 @@
+header {
+    position: absolute;
+    height: 48px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#inner-header-container {
+    max-width: calc(1172px + 32px);
+    height: inherit;
+
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    line-height: 32px;
+    font-family: Archivo;
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--black)
+}
+
+#logo {
+    white-space: nowrap;
+    margin: 0 16px;
+}
+
+#purple {
+    color: var(--purple);
+    font-weight: bold;
+}
+
+.page-link {
+    margin: 0 16px;
+}
