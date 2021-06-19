@@ -10,10 +10,10 @@ export default class Header extends Component {
                         <span id="purple">PURPLE</span> POLITICS
                     </a>
                     <div id="page-links">
-                        <a class="page-link" href="#home">
+                        <a className="page-link" href="#home">
                             Home
                         </a>
-                        <a class="page-link" href="#about">
+                        <a className="page-link" href="#about">
                             About
                         </a>
                     </div>
