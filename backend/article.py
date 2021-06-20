@@ -13,18 +13,18 @@ class Article:
     """
 
     def __init__(self, company: str, title: str, description: str,
-                 article_url: str, image_url: str, published_time: str):
+                 published_time: str, article_url: str, image_url: str):
         self.company = company
         self.title = title
         self.description = description
+        self.published_time = published_time
         self.article_url = article_url
         self.image_url = image_url
-        self.published_time = published_time
 
     def __str__(self):
         return self.company + ', ' + \
                self.title[:10] + ', ' + \
                self.description[:10] + ', ' + \
+               self.published_time + ', ' + \
                self.article_url + ', ' + \
-               self.image_url + ', ' + \
-               self.published_time
+               self.image_url
