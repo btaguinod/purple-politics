@@ -6,6 +6,10 @@
     --light-gray: #E9E9E9;
 }
 
+body {
+    margin: 0;
+}
+
 a {
     text-decoration: none;
     color: inherit;
