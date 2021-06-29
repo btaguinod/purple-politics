@@ -1,5 +1,5 @@
 header {
-    position: absolute;
+    position: fixed;
     height: 48px;
     left: 0px;
     right: 0px;
@@ -10,7 +10,7 @@ header {
 }
 
 #inner-header-container {
-    max-width: 1172;
+    max-width: 1172px;
     height: inherit;
 
     margin: auto;
