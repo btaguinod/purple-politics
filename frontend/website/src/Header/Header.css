@@ -10,10 +10,11 @@ header {
 }
 
 #inner-header-container {
-    max-width: calc(1172px + 32px);
+    max-width: 1172;
     height: inherit;
 
     margin: auto;
+    padding: 0 16px; 
 
     display: flex;
     justify-content: space-between;
@@ -28,7 +29,6 @@ header {
 
 #logo {
     white-space: nowrap;
-    margin: 0 16px;
 }
 
 #purple {
@@ -37,6 +37,11 @@ header {
 }
 
 .page-link {
-    margin: 0 16px;
     font-size: 24px;
+}
+
+#page-links {
+    display: grid;
+    column-gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
 }
