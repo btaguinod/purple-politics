@@ -6,23 +6,22 @@ export default class Cards extends Component {
     constructor(props) {
         super(props);
         this.cardTypes = [
-            "card-medium-1", 
-            "card-medium-2",
-            "card-large",
-            "card-small",
-            "card-small",
-            "card-small",
-            "card-large"
+            "md-1", 
+            "md-2",
+            "lg",
+            "sm",
+            "sm",
+            "sm",
+            "lg"
         ];
         while (this.cardTypes.length < this.props.articles.length)
-            this.cardTypes.push("card-small");
-        
+            this.cardTypes.push("sm");
     }
     render() {
         return (
             <div id="cards">
                 {this.props.articles.map((article, i) => 
-                    <Card article={article} className={this.cardTypes[i]}/>
+                    <Card article={article} type={this.cardTypes[i]}/>
                 )}
             </div>
         )
