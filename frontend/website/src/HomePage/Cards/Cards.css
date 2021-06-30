@@ -1,0 +1,41 @@
+#cards {
+    align-self: start;
+    grid-column: 1/span 3;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 32px;
+
+    grid-auto-flow: dense;
+
+    margin-top: 80px;
+}
+
+.card {
+    justify-self: stretch;
+    align-self: stretch;
+    
+    height: 272px;
+}
+
+.card-small {
+    grid-column: auto / span 1;
+}
+
+.card-medium-1 {
+    grid-column: auto / span 3;
+}
+
+.card-medium-2 {
+    grid-column: auto / span 3;
+}
+
+.card-large {
+    grid-column: auto / span 2;
+    grid-row: auto / span 2;
+    height: 576px;
+}
+
+.card-image {
+
+}
