@@ -136,6 +136,11 @@ img {
 
 [class|=card-text-md] {
     grid-column-end: span 5;
+
+}
+
+.card-sources-md-2 {
+    justify-content: flex-end;
 }
 
 .card-base-lg {
