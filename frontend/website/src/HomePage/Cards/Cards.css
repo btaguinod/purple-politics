@@ -3,6 +3,8 @@
     grid-column: 1/span 3;
 
     margin-top: 48px;
+
+    position: relative;
 }
 
 img {
@@ -18,78 +20,14 @@ img {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-flow: dense;
+    gap: 32px;
 
-    border-color: var(--light-gray);
-    border-width: 1px;
-    border-bottom-style: solid;
+    padding: 16px 0;
 
     position: relative;
 }
 
-[class|=card-group]:first-child, [class|=card-group]:last-child {
-    border-bottom-style: none;
-}
 
-.card-group-1 [class|=card-base-md]::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: -16px;
-    border-color: var(--light-gray);
-    border-width: 1px;
-    border-bottom-style: solid;
-}
-
-.card-group-1::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 16px;
-    left: 0;
-    right: -16px;
-    bottom: 16px;
-    border-color: var(--light-gray);
-    border-width: 1px;
-    border-right-style: solid;
-}
-
-.card-group-2 .card-base-lg {
-    padding-right: 16px;
-    border-right-style: solid;
-}
-
-.card-group-2 .card-base-sm {
-    padding-left: 16px;
-}
-
-.card-group-3 .card-base-lg {
-    padding-left: 16px;
-    border-left-style: solid;
-}
-
-.card-group-3 .card-base-sm {
-    padding-right: 16px;
-}
-
-.card-group-4::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 16px;
-    left: -16px;
-    right: 0;
-    bottom: 16px;
-    border-color: var(--light-gray);
-    border-width: 1px;
-    border-left-style: solid;
-}
-
-.card-group-4 {
-    column-gap: 32px;
-}
 
 
 [class|=card-base] {
@@ -97,12 +35,18 @@ img {
     align-self: stretch;
     
     height: 272px;
-    margin: 16px 0;
-
-    border-color: var(--light-gray);
-    border-width: 1px;
 
     position: relative;
+}
+
+[class|=card-base] [class|=card-title] {
+    transition: 0.3s;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
+
+[class|=card-base]:hover [class|=card-title] {
+    text-decoration-color: var(--purple);
 }
 
 [class|=card-image] {
@@ -237,4 +181,62 @@ img {
 .card-text-lg {
     grid-row: 6 / span 4;
     margin-top: 12px;
+}
+
+[class|="card"]::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: -1;
+
+    border-color: var(--light-gray);
+    border-width: 1px;
+}
+
+/* ASTHETIC SEPARATORS */
+
+[class|=card-group]:first-child::before, [class|=card-group]:last-child::before {
+    border-bottom-style: none;
+}
+
+.card-group-1 [class|=card-base-md]::before {
+    bottom: -16px;
+    border-bottom-style: solid;
+}
+
+.card-group-1::before {
+    top: 16px;
+    right: -16px;
+    bottom: 16px;
+    border-right-style: solid;
+}
+
+.card-group-2 .card-base-lg::before {
+    right: -16px;
+    border-right-style: solid;
+}
+
+.card-group-2::before {
+    border-bottom-style: solid;
+}
+
+.card-group-3 .card-base-lg::before {
+    left: -16px;
+    border-left-style: solid;
+}
+
+.card-group-3::before {
+    border-bottom-style: solid;
+}
+
+.card-group-4::before {
+    top: 16px;
+    left: -16px;
+    bottom: 16px;
+    border-left-style: solid;
 }
