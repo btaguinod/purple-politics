@@ -1,0 +1,29 @@
+#headlines {
+    top: 48px;
+    position: -webkit-sticky;
+    position: sticky;
+    
+    color: var(--near-black);
+    
+    height: auto;
+}
+
+#headlines-label {
+    margin: 16px 0;
+    
+    font-size: 28px;
+    line-height: 26px;
+    font-weight: 600;
+}
+
+.headline-title {
+    padding: 16px 0;
+
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: var(--light-gray);
+}
