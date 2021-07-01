@@ -4,11 +4,6 @@ export default class Card extends Component {
     render() {
         return (
             <div className={"card-base-" + this.props.type}>
-                {/* <img
-                    className={"card-image-" + this.props.type}
-                    src={this.props.article.image} 
-                    alt="news"
-                /> */}
                 <div className={"card-image-" + this.props.type}>
                     <img
                         src={this.props.article.image} 
