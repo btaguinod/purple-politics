@@ -1,6 +1,5 @@
 #home-page-articles {
-    max-width: 1172px;
-    height: 100vh;
+    width: var(--body-width);
 
     margin: auto;
     padding: 0 16px; 

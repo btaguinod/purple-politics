@@ -1,4 +1,6 @@
 :root {
+    --body-width: 1172px;
+    
     --purple: #8A2BE9;
     --black: #0E1212;
     --near-black: #292929;
