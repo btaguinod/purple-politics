@@ -72,10 +72,7 @@ img {
 .card-group-3 .card-base-sm {
     padding-right: 16px;
 }
-.card-group-4 {
-    position: relative;
-  
-}
+
 .card-group-4::after {
     content: "";
     position: absolute;
