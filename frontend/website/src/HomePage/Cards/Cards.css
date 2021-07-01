@@ -30,7 +30,7 @@ img {
     border-bottom-style: none;
 }
 
-.card-group-1 [class|=card-base-md]::after {
+.card-group-1 [class|=card-base-md]::before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -43,9 +43,10 @@ img {
     border-bottom-style: solid;
 }
 
-.card-group-1::after {
+.card-group-1::before {
     content: "";
     position: absolute;
+    z-index: -1;
     top: 16px;
     left: 0;
     right: -16px;
@@ -73,7 +74,7 @@ img {
     padding-right: 16px;
 }
 
-.card-group-4::after {
+.card-group-4::before {
     content: "";
     position: absolute;
     z-index: -1;
