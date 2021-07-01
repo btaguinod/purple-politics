@@ -53,14 +53,33 @@ img {
 [class|=card-text] {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
-[class|=card-title] {
-    font-size: 36px;
+[class|=card-title] { 
     line-height: 40px;
     font-weight: 600;
     color: var(--near-black);
+}
+
+[class|=card-title].title-sm {
+    font-size: 36px;
+    line-height: 40px;
+}
+
+[class|=card-title].title-md {
+    font-size: 40px;
+    line-height: 44px;
+}
+
+[class|=card-title].title-lg {
+    font-size: 44px;
+    line-height: 48px;
+}
+
+[class|=card-title].title-xl {
+    font-size: 51px;
+    line-height: 55px;
 }
 
 [class|=card-date] {
@@ -98,10 +117,27 @@ img {
 }
 
 .card-title-sm {
+    margin-top: 6px;
+}
+
+.card-title-sm.title-sm {
     font-size: 18px;
     line-height: 22px;
+}
 
-    margin-top: 6px;
+.card-title-sm.title-md {
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.card-title-sm.title-lg {
+    font-size: 21px;
+    line-height: 24px;
+}
+
+.card-title-sm.title-xl {
+    font-size: 24px;
+    line-height: 27px;
 }
 
 .card-date-sm {
@@ -180,6 +216,8 @@ img {
     margin-top: 12px;
 }
 
+/* ASTHETIC SEPARATORS */
+
 [class|="card"]::before {
     content: "";
 
@@ -194,8 +232,6 @@ img {
     border-color: var(--light-gray);
     border-width: 1px;
 }
-
-/* ASTHETIC SEPARATORS */
 
 [class|=card-group]:first-child::before, [class|=card-group]:last-child::before {
     border-bottom-style: none;
