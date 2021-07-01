@@ -26,4 +26,12 @@
     border-top-style: solid;
     border-width: 1px;
     border-color: var(--light-gray);
+
+    transition: 0.3s;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
+
+.headline-title:hover {
+    text-decoration-color: var(--purple);
 }

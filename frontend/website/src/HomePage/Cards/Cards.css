@@ -27,9 +27,6 @@ img {
     position: relative;
 }
 
-
-
-
 [class|=card-base] {
     justify-self: stretch;
     align-self: stretch;
