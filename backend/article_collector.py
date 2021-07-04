@@ -26,6 +26,8 @@ class ArticleCollector:
         articles = []
         entries = feedparser.parse(self.url).entries
         for entry in entries[:max_articles]:
+            if 'published_parsed' not in entry:
+                continue
             title = entry['title']
             description = self._remove_html_tags(entry['summary'])
             article_url = entry['link']
@@ -42,7 +44,6 @@ class ArticleCollector:
         while '<' in text and '>' in text:
             text = text[:text.find('<')] + text[text.find('>') + 1:]
         return text
-
 
     @staticmethod
     def _get_image_url(entry: dict) -> str:

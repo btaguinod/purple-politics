@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 
 from article import Article
 from article_collector import ArticleCollector
@@ -23,7 +24,7 @@ class MyTestCase(unittest.TestCase):
 
     OUTPUT_MAX = 5
 
-    def test_something(self):
+    def test_article_collector(self):
         print('Testing article collector...')
 
         for company, url in self.URLS.items():
