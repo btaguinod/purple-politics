@@ -7,15 +7,15 @@ export default class Cards extends Component {
         super(props);
         let articles = this.props.articles.length;
         this.cardTypes = [
-            "md-1", 
-            "md-2",
             "lg",
             "sm",
             "sm",
+            "md-1", 
+            "md-2",
             "sm",
             "lg"
         ];
-        this.groupSizes = [2, 3, 3]
+        this.groupSizes = [3, 2, 3]
         while (this.cardTypes.length < articles)
             this.cardTypes.push("sm");
 

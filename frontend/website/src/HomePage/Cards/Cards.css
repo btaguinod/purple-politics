@@ -53,11 +53,10 @@ img {
 [class|=card-text] {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 [class|=card-title] { 
-    line-height: 40px;
     font-weight: 600;
     color: var(--near-black);
 }
@@ -73,13 +72,13 @@ img {
 }
 
 [class|=card-title].title-lg {
-    font-size: 44px;
-    line-height: 48px;
+    font-size: 43px;
+    line-height: 45px;
 }
 
 [class|=card-title].title-xl {
-    font-size: 51px;
-    line-height: 55px;
+    font-size: 48px;
+    line-height: 52px;
 }
 
 [class|=card-date] {
@@ -218,7 +217,7 @@ img {
 
 /* ASTHETIC SEPARATORS */
 
-[class|="card"]::before {
+[class|="card"]::before, [class|="card"]::after {
     content: "";
 
     position: absolute;
@@ -233,43 +232,34 @@ img {
     border-width: 1px;
 }
 
-[class|=card-group]:first-child::before, [class|=card-group]:last-child::before {
-    border-bottom-style: none;
-}
-
-.card-group-1 [class|=card-base-md]::before {
+[class|=card-base-md]::before {
     bottom: -16px;
     border-bottom-style: solid;
 }
 
-.card-group-1::before {
+[class|=card-group]:nth-last-of-type(2n + 2)::after {
     top: 16px;
     right: -16px;
     bottom: 16px;
     border-right-style: solid;
 }
+[class|=card-group]:nth-last-of-type(2n + 1)::after {
+    top: 16px;
+    left: -16px;
+    bottom: 16px;
+    border-left-style: solid;
+}
 
-.card-group-2 .card-base-lg::before {
+.card-group-1 .card-base-lg::before {
     right: -16px;
     border-right-style: solid;
 }
 
-.card-group-2::before {
+[class|=card-group]::before {
     border-bottom-style: solid;
 }
 
 .card-group-3 .card-base-lg::before {
     left: -16px;
-    border-left-style: solid;
-}
-
-.card-group-3::before {
-    border-bottom-style: solid;
-}
-
-.card-group-4::before {
-    top: 16px;
-    left: -16px;
-    bottom: 16px;
     border-left-style: solid;
 }

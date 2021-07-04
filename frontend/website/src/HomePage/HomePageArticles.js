@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import Cards from './Cards/Cards'
 import Headlines from './Headlines/Headlines'
 import './HomePageArticles.css'
-import getArticles from './mock_article_sets/articles'
+// import getArticles from './mock_article_sets/articles'
+import getArticles from './mock_article_sets/rss'
 
 export default class HomePageArticles extends Component {
     constructor(props) {

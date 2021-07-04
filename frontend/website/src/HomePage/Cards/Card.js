@@ -8,10 +8,7 @@ export default class Card extends Component {
         let closestSize = Object.keys(Card.titleSizes).reduce((prev, curr) => 
             Math.abs(Number(curr) - titleLength) < Math.abs(Number(prev) - titleLength) ? curr : prev
         )
-
-        console.log(closestSize)
-
-        this.titleClass = "card-title-" + this.props.type + ' title-' + String(Card.titleSizes[closestSize]) + " " + String(titleLength);
+        this.titleClass = "card-title-" + this.props.type + ' title-' + String(Card.titleSizes[closestSize]);
     }
     render() {
         
