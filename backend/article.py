@@ -1,10 +1,11 @@
+from company import Company
 
 
 class Article:
     """Representation of online news article.
 
     Attributes:
-        company (str): Company name.
+        company (Company): Company name.
         title (str): Article title.
         description (str): First lines of article.
         article_url (str): Link to article.
@@ -12,7 +13,7 @@ class Article:
         published_time (str): Time article was posted in ISO 8601 format
     """
 
-    def __init__(self, company: str, title: str, description: str,
+    def __init__(self, company: Company, title: str, description: str,
                  published_time: str, article_url: str, image_url: str):
         self.company = company
         self.title = title
@@ -22,7 +23,7 @@ class Article:
         self.image_url = image_url
 
     def __str__(self):
-        return self.company + ', ' + \
+        return str(self.company) + ', ' + \
                self.title[:10] + ', ' + \
                self.description[:10] + ', ' + \
                self.published_time + ', ' + \

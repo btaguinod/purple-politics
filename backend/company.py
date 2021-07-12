@@ -11,6 +11,9 @@ class Company:
         self.name = name
         self.bias = bias
 
+    def __str__(self):
+        return self.name
+
 
 companies = [
     {
