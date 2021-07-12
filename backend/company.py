@@ -1,11 +1,11 @@
 class Company:
-    """Representation of online news article.
+    """News company that publishes articles.
 
         Attributes:
             name (str): Name.
             bias (float): Political bias from -1 to 1 where left is negative
             and right is positive.
-        """
+    """
 
     def __init__(self, name, bias):
         self.name = name
