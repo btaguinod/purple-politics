@@ -13,8 +13,12 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header />
-    <Home />
+    <Router >
+      <Header />
+      <Switch>
+        <Route path="/" component={Home} />
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

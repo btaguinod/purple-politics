@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Header.css'
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
     render() {
@@ -10,12 +11,8 @@ export default class Header extends Component {
                         <span id="purple">PURPLE</span> POLITICS
                     </a>
                     <div id="page-links">
-                        <a className="page-link" href="#home">
-                            Home
-                        </a>
-                        <a className="page-link" href="#about">
-                            About
-                        </a>
+                        <Link className="page-link" to="/home"> Home </Link>
+                        <Link className="page-link" to="/about"> About </Link>
                     </div>
                 </div>
             </header>
