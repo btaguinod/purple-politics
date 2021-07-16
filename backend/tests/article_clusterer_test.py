@@ -1,14 +1,13 @@
-import json
 import unittest
 
 from article import Article
-from article_clusterer import ClusterList
+from article_clusterer import Clusterer
 from article_collector import ArticleCollector
-from company import companies, Company
+from company import companies
 from event import Event
 
 
-class ArticleClustererTest(unittest.TestCase):
+class ClustererTest(unittest.TestCase):
     THRESHOLD = 0.3
 
     def test_add(self):
@@ -24,21 +23,7 @@ class ArticleClustererTest(unittest.TestCase):
             print('\t', 'Found', len(articles))
             all_articles += articles
 
-        # # For testing locally.
-        # with open('../download_articles/data.json', 'r', encoding='utf-8') \
-        #         as f:
-        #     articles = json.loads(f.read())
-        # for article in articles:
-        #     all_articles.append(Article(
-        #         Company(article['company'], 0),
-        #         article['title'],
-        #         article['description'],
-        #         article['published_time'],
-        #         article['article_url'],
-        #         article['image_url']
-        #     ))
-
-        clusters = ClusterList(self.THRESHOLD)
+        clusters = Clusterer(self.THRESHOLD)
         clusters.add(all_articles)
 
         for i, event in enumerate(clusters.get_events()):

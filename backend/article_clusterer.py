@@ -121,8 +121,8 @@ class Cluster:
         return Event(articles)
 
 
-class ClusterList:
-    """List of Cluster objects.
+class Clusterer:
+    """Clusters Articles into Events.
 
     Attributes:
         threshold (float): Cosine similarity from 0 to 1 for clustering
