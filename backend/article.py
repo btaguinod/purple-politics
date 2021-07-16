@@ -1,4 +1,5 @@
 from company import Company
+from text_info import TextInfo
 
 
 class Article:
@@ -14,13 +15,15 @@ class Article:
     """
 
     def __init__(self, company: Company, title: str, description: str,
-                 published_time: str, article_url: str, image_url: str):
+                 published_time: str, article_url: str, image_url: str,
+                 text_info: TextInfo = None):
         self.company = company
         self.title = title
         self.description = description
         self.published_time = published_time
         self.article_url = article_url
         self.image_url = image_url
+        self.text_info = text_info
 
     def __str__(self):
         return str(self.company) + ', ' + \

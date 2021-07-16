@@ -22,6 +22,7 @@ class ClustererTest(unittest.TestCase):
             articles = collector.get_articles(100)
             print('\t', 'Found', len(articles))
             all_articles += articles
+        print('Clustering ' + str(len(all_articles)) + ' Articles:')
 
         clusters = Clusterer(self.THRESHOLD)
         clusters.add(all_articles)

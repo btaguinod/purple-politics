@@ -1,3 +1,5 @@
+import uuid
+
 from article import Article
 
 
@@ -10,5 +12,6 @@ class Event:
     """
 
     def __init__(self, articles: list[Article], title: str = None):
+        self.event_id = uuid.uuid4()
         self.articles = articles
         self.title = title
