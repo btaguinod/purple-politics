@@ -269,3 +269,4 @@ sketch
 
 mock_article_sets/
 download_articles/
+config.py
