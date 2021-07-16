@@ -5,7 +5,7 @@ import './Cards.css'
 export default class Cards extends Component {
     constructor(props) {
         super(props);
-        let articles = this.props.articles.length;
+        let events = this.props.events.length;
         this.cardTypes = [
             "lg",
             "sm",
@@ -16,17 +16,17 @@ export default class Cards extends Component {
             "lg"
         ];
         this.groupSizes = [3, 2, 3]
-        while (this.cardTypes.length < articles)
+        while (this.cardTypes.length < events)
             this.cardTypes.push("sm");
 
-        let lastGroupSize = articles;
+        let lastGroupSize = events;
         for (let size of this.groupSizes)
             lastGroupSize -= size;
         this.groupSizes.push(lastGroupSize);
     }
     render() {
-        let cards = this.props.articles.map((article, i) => 
-                    <Card article={article} type={this.cardTypes[i]}/>
+        let cards = this.props.events.map((event, i) => 
+                    <Card event={event} type={this.cardTypes[i]}/>
         )
         let i = 0;
         let groups = this.groupSizes.map((size, groupNum) => {

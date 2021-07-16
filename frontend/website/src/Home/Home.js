@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import Cards from './Cards/Cards'
 import Headlines from './Headlines/Headlines'
-import './HomePageArticles.css'
+import './Home.css'
 // import getArticles from './mock_article_sets/articles'
 import getArticles from './mock_article_sets/rss'
 
-export default class HomePageArticles extends Component {
+export default class Home extends Component {
     constructor(props) {
         super(props);
-        this.articles = getArticles(50);
+        this.events = getArticles(50);
     }
 
     render() {
         return (
-            <div id="home-page-articles">
-                <Cards articles={this.articles.slice(7)}/>
-                <Headlines articles={this.articles.slice(0, 7)}/>
+            <div id="home">
+                <Cards events={this.events.slice(7)}/>
+                <Headlines events={this.events.slice(0, 7)}/>
             </div>
         )
     }

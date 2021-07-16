@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header/Header';
-import HomePageArticles from './HomePage/HomePageArticles';
+import Home from './Home/Home';
 import './index.css'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <Header />
-    <HomePageArticles/>
+    <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );
