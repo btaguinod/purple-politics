@@ -8,7 +8,7 @@ export default function About() {
             <div className="about-description">
                 <span className="bold purple">Purple Politics</span> is a website designed to help you understand all perspectives on recent political events. 
                 <br /><br />
-                The complexity of political topics is too great to describe their ethics with a single label. They cannot be boiled down to just <span className="blue">blue</span> or <span className="red">red</span>red. 
+                The complexity of political topics is too great to describe their ethics with a single label. They cannot be boiled down to just <span className="blue">blue</span> or <span className="red">red</span>. 
                 <br /><br />
                 Rather, they are <span className="bold purple">purple</span>. Their ethics are a mix of political sides. 
                 <br /><br />
