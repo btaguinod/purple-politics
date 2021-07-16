@@ -7,11 +7,11 @@ export default class Header extends Component {
         return (
             <header>
                 <div id="inner-header-container">
-                    <a id="logo" href="#home">
+                    <Link id="logo" to="/">
                         <span id="purple">PURPLE</span> POLITICS
-                    </a>
+                    </Link>
                     <div id="page-links">
-                        <Link className="page-link" to="/home"> Home </Link>
+                        <Link className="page-link" to="/"> Home </Link>
                         <Link className="page-link" to="/about"> About </Link>
                     </div>
                 </div>

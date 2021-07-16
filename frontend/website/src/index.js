@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header/Header';
 import Home from './Home/Home';
+import About from './About/About';
 import './index.css'
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 ReactDOM.render(
@@ -16,7 +16,8 @@ ReactDOM.render(
     <Router >
       <Header />
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/about"> <About /> </Route>
+        <Route path="/"> <Home /> </Route>
       </Switch>
     </Router>
   </React.StrictMode>,

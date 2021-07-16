@@ -1,0 +1,38 @@
+#about {
+    width: var(--body-width);
+
+    margin: auto;
+    padding: 48px 16px; 
+}
+
+.about-title {
+    font-family: Archivo;
+    font-weight: 600;
+    font-size: 64px;
+    color: var(--black);
+
+    margin: 32px 0;
+}
+
+.about-description {
+    font-family: Montserrat;
+    font-size: 36px;
+    color: var(--gray);
+
+}
+
+.purple {
+    color: var(--purple);
+}
+
+.blue {
+    color: var(--blue);
+}
+
+.red {
+    color: var(--red);
+}
+
+.bold {
+    font-weight: bold;
+}
