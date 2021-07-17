@@ -17,14 +17,15 @@ if __name__ == "__main__":
         print('Retrieving ' + str(company) + ':')
         collector = ArticleCollector(company, url)
         articles = collector.get_articles(100)
-        print('\t', 'Found', len(articles))
+        print('\tFound', len(articles))
         all_articles += articles
     print()
 
-    print('Analyzing Sentiment')
+    print('Analyzing Sentiment:')
     for article in all_articles:
         article_text = article.title + ' ' + article.description
         article.text_info = TextAnalyzer.analyze_text(article_text)
+    print()
 
     print('Clustering ' + str(len(all_articles)) + ' Articles:')
     clusters = Clusterer(0.3)
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     mongo_client = MongoClient(DB_CREDENTIALS)
     db = mongo_client.get_database('purplePolitics')
     collection = db.get_collection('events')
-    print('Inserting Events')
+    print('\tInserting Events')
     all_events = []
     for event in events:
         article_dicts = []
