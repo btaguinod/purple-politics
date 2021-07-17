@@ -57,9 +57,9 @@ if __name__ == "__main__":
                 }
             })
         event_dict = {
-            'event_id': str(event.event_id),
+            'eventId': str(event.event_id),
             'title': event.title,
-            'article': article_dicts
+            'articles': article_dicts
         }
         all_events.append(event_dict)
     collection.insert_many(all_events)

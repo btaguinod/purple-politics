@@ -1,10 +1,10 @@
 import unittest
 
-from article import Article
-from article_clusterer import Clusterer
-from article_collector import ArticleCollector
-from company import companies
-from event import Event
+from scheduled_function.article import Article
+from scheduled_function.article_clusterer import Clusterer
+from scheduled_function.article_collector import ArticleCollector
+from scheduled_function.company import companies
+from scheduled_function.event import Event
 
 
 class ClustererTest(unittest.TestCase):
