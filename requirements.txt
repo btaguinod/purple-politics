@@ -1,1 +1,5 @@
+flask
+pymongo
+pymongo[srv]
+flask-cors
 gunicorn
