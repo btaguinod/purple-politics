@@ -14,7 +14,7 @@ export default class Card extends Component {
     static months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     formatDate = date => {
-        return Card.months[date.getMonth()] + ' ' + date.getDate() + ' ' + 
+        return Card.months[date.getMonth()] + ' ' + date.getDate() + ', ' + 
             date.getFullYear();
     }
 
