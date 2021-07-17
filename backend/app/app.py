@@ -32,12 +32,20 @@ def get_events():
     for event in collection.find():
         articles = event['articles']
         companies = set([article['company']['name'] for article in articles])
-        earliest_article = min(articles, key=lambda x: x['publishedTime'])
-        latest_article = max(articles, key=lambda x: x['publishedTime'])
+        sorted_articles = sorted(articles, key=lambda x: x['publishedTime'])
+        earliest_article = sorted_articles[0]
+        latest_article = sorted_articles[-1]
+        image_url = ""
+        for article in sorted_articles:
+            article_image_url = article['imageUrl']
+            if article_image_url != "":
+                image_url = article_image_url
+                break
+
         events.append({
             'eventId': event['eventId'],
             'title': earliest_article['title'],
-            'imageUrl': earliest_article['imageUrl'],
+            'imageUrl': image_url,
             'earliestTime': earliest_article['publishedTime'],
             'latestTime': latest_article['publishedTime'],
             'companies': list(companies)
