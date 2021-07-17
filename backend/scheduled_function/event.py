@@ -8,10 +8,8 @@ class Event:
 
     Attributes:
         articles (list): group of relevant articles.
-        title (str): Short summary of articles.
     """
 
-    def __init__(self, articles: list[Article], title: str = None):
+    def __init__(self, articles: list[Article]):
         self.event_id = shortuuid.uuid()
         self.articles = articles
-        self.title = title

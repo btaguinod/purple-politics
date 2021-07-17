@@ -23,6 +23,7 @@ if __name__ == "__main__":
         articles = collector.get_articles(100)
         print('\tFound', len(articles))
         all_articles += articles
+    print('\tFound', len(all_articles), 'total')
     print()
 
     print('Analyzing Sentiment:')
@@ -63,7 +64,6 @@ if __name__ == "__main__":
             })
         event_dict = {
             'eventId': str(event.event_id),
-            'title': event.title,
             'articles': article_dicts
         }
         all_events.append(event_dict)
