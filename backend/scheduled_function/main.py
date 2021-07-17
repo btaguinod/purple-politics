@@ -2,7 +2,11 @@ from article_clusterer import Clusterer
 from article_collector import ArticleCollector
 from company import companies
 
-from config import DB_CREDENTIALS
+import os
+try:
+    from config import DB_CREDENTIALS
+except ImportError:
+    DB_CREDENTIALS = os.environ['DB_CREDENTIALS']
 
 from pymongo import MongoClient
 

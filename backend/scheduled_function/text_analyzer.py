@@ -1,8 +1,13 @@
 from article import Article
 from text_info import TextInfo
+import os
 
-from config import IBM_API_KEY
-from config import IBM_URL
+try:
+    from config import IBM_API_KEY
+    from config import IBM_URL
+except ImportError:
+    IBM_API_KEY = os.environ['IBM_API_KEY']
+    IBM_URL = os.environ['IBM_URL']
 
 import requests
 from requests.exceptions import HTTPError
