@@ -1,14 +1,18 @@
 from flask import Flask, jsonify
 from pymongo import MongoClient
+from flask_cors import CORS
 
 import os
 try:
     from config import DB_CREDENTIALS
+    origins = ['http://localhost:3000']
 except ImportError:
     DB_CREDENTIALS = os.environ['DB_CREDENTIALS']
+    origins = ['https://purplepolitics.netlify.app']
 
 app = Flask(__name__)
 
+CORS(app, origins=origins)
 
 mongoClient = MongoClient(DB_CREDENTIALS)
 db = mongoClient.get_database('purplePolitics')
