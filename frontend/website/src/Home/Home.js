@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import Cards from './Cards/Cards'
 import Headlines from './Headlines/Headlines'
 import './Home.css'
-import getArticles from './mock_article_sets/rss'
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        this.events = getArticles(50);
         this.state = {
             error: null,
             isLoaded: false,
