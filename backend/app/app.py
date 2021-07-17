@@ -15,11 +15,10 @@ db = mongoClient.get_database('purplePolitics')
 collection = db.get_collection('events')
 
 
-@app.route('/articles/<id>/')
-def get_articles(id):
-    event = collection.find_one({"event_id": id})
+@app.route('/articles/<event_id>/')
+def get_articles(event_id):
+    event = collection.find_one({"eventId": event_id})
     event['_id'] = str(event['_id'])
-    print('YO', event)
     return jsonify(event)
 
 
