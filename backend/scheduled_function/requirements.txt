@@ -1,0 +1,7 @@
+requests
+pymongo
+pymongo[srv]
+numpy
+nltk
+feedparser
+shortuuid
