@@ -10,13 +10,27 @@ export default class Card extends Component {
         )
         this.titleClass = "card-title-" + this.props.type + ' title-' + String(Card.titleSizes[closestSize]);
     }
+
+    static months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    formatDate = date => {
+        return Card.months[date.getMonth()] + ' ' + date.getDate() + ' ' + 
+            date.getFullYear();
+    }
+
     render() {
-        
+        let earliestDate = new Date(this.props.event.earliestTime);
+        let latestDate = new Date(this.props.event.latestTime);
+        earliestDate = this.formatDate(earliestDate);
+        latestDate = this.formatDate(latestDate);
+        let dateRange = earliestDate;
+        if (earliestDate !== latestDate)
+            dateRange += ' - ' + latestDate
         return (
             <div className={"card-base-" + this.props.type}>
                 <div className={"card-image-" + this.props.type}>
                     <img
-                        src={this.props.event.image} 
+                        src={this.props.event.imageUrl} 
                         alt="news"
                     />
                 </div>
@@ -26,10 +40,10 @@ export default class Card extends Component {
                     </div>
                     <div>
                         <div className={"card-date-" + this.props.type}>
-                            {this.props.event.date}
+                            {dateRange}
                         </div>
                         <div className={"card-sources-" + this.props.type}>
-                            {this.props.event.sources.join(" | ")}
+                            {this.props.event.companies.join(" | ")}
                         </div>
                     </div>
                 </div>
