@@ -2,12 +2,16 @@
     --body-width: 1172px;
     
     --purple: #8A2BE9;
-    --blue: #2B2BE9;
-    --red: #E92B2B;
     --black: #0E1212;
     --near-black: #292929;
     --gray: #666666;
     --light-gray: #E9E9E9;
+
+    --blue: hsl(211, 81%, 54%);
+    --light-blue: hsl(211, 81%, 70%);
+    --light-purple: hsl(270, 81%, 70%);
+    --light-red: hsl(11, 81%, 70%);
+    --red:hsl(11, 81%, 54%);
 }
 
 body {

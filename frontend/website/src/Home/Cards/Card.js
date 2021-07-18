@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class Card extends Component {
     static titleSizes = {100:'sm', 90:'md', 60:'lg', 45:'xl'}
@@ -26,8 +27,10 @@ export default class Card extends Component {
         let dateRange = earliestDate;
         if (earliestDate !== latestDate)
             dateRange += ' - ' + latestDate
+
+        let link = "articles/" + this.props.event.eventId; 
         return (
-            <div className={"card-base-" + this.props.type}>
+            <Link className={"card-base-" + this.props.type} to={link}>
                 <div className={"card-image-" + this.props.type}>
                     <img
                         src={this.props.event.imageUrl} 
@@ -47,7 +50,7 @@ export default class Card extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         )
     }
 }

@@ -16,12 +16,12 @@ export default class Cards extends Component {
                 'lg'
             ],
             groupSizes: [3, 2, 3],
-            loaded: false
+            isLoaded: false
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
+        if (this.props !== prevProps && !this.state.isLoaded) {
             this.setState((state, props) => {
                 let eventsLength = props.events.length;
 
@@ -37,14 +37,14 @@ export default class Cards extends Component {
                 }
                 let cardTypes = state.cardTypes.concat(extraCardTypes)
 
-                return { groupSizes, cardTypes, loaded: true }
+                return { groupSizes, cardTypes, isLoaded: true }
             })
         }
     }
 
     render() {
-        if (!this.state.loaded)
-            return <div>ASDF</div>
+        if (!this.state.isLoaded)
+            return <span />
         let cards = this.props.events.map((event, i) => 
                     <Card event={event} type={this.state.cardTypes[i]}/>
         )

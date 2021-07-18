@@ -1,0 +1,184 @@
+
+
+#articles-container{
+    width: var(--body-width);
+
+    margin: auto;
+    padding: 0 16px; 
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 32px;
+    align-items: start;
+
+    min-height: 100vh;
+
+    font-family: Archivo;
+    color: var(--near-black)
+}
+
+#heading {
+    font-size: 36px;
+    font-weight: 600;
+
+    margin: 16px 0;
+}
+
+#articles {
+    align-self: start;
+    grid-column: 2/span 6;
+
+    margin-top: 48px;
+}
+
+.article {
+    justify-self: stretch;
+    align-self: stretch;
+
+    margin: 32px 0;
+
+    position: relative;
+    /* display: block; */
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.image-title-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    min-height: 60px;
+}
+
+img {
+    object-fit: cover;
+    max-width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.article-image {
+    height: 90px;
+    width: 135px;
+
+    margin-right: 16px;
+}
+
+.article-title {
+    vertical-align: middle;
+
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.article:hover .article-title {
+    text-decoration-color: var(--purple);
+}
+
+.article .article-title {
+    transition: 0.3s;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
+
+.article-description {
+    color: var(--gray);
+
+    font-family: Montserrat;
+    font-size: 18px;
+
+    margin: 16px 0;
+}
+
+.company-date-container {
+    color: var(--gray);
+    font-size: 18px;
+}
+
+.article-company {
+    font-weight: 600;
+}
+
+.article-bias {
+    color: white;
+    font-weight: 600;
+
+    padding: 0 0.25em;
+}
+
+.l {
+    background-color: var(--blue);
+}
+
+.cl {
+    background-color: var(--light-blue);
+}
+
+.c {
+    background-color: var(--light-purple);
+}
+
+.cr {
+    background-color: var(--light-red);
+}
+
+.r {
+    background-color: var(--red);
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    align-items: stretch;
+
+    font-size: 24px;
+    font-weight: 500;
+
+    text-align: center;
+}
+
+.sentiment-container {
+    margin: 8px;
+}
+
+.article-sentiment {
+    font-size: 48px;
+}
+
+.emotion-container {
+    margin: 8px;
+}
+
+.article-emotion {
+    font-size: 36px;
+}
+
+.article::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -16px;
+    bottom: 0;
+
+    z-index: -1;
+
+    border-color: var(--light-gray);
+    border-width: 1px;
+
+    
+    border-top-style: solid;
+}
