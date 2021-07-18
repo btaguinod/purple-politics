@@ -54,8 +54,6 @@
     display: flex;
     justify-content: right;
     align-items: center;
-
-    min-height: 60px;
 }
 
 .article img {
@@ -66,8 +64,6 @@
 }
 
 .article-image {
-
-
     margin-right: 16px;
 }
 
@@ -136,7 +132,7 @@
 .right-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     align-items: stretch;
 
@@ -147,11 +143,11 @@
 }
 
 .sentiment-container {
-    margin: 8px;
+    margin: 0 16px;
 }
 
 .article-sentiment {
-    font-size: 48px;
+    font-weight: 700;
 }
 
 .emotion-container {
@@ -159,7 +155,15 @@
 }
 
 .article-emotion {
-    font-size: 36px;
+    font-weight: 700;
+}
+
+.positive {
+    color: var(--positive);
+}
+
+.negative {
+    color: var(--negative);
 }
 
 .article::before {

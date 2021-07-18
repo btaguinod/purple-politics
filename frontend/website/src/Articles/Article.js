@@ -10,6 +10,22 @@ export default function Article(props) {
     }
     const capitalize = text => 
         (text[0].toUpperCase() + text.slice(1, text.length))
+    const getSentimentClass = () => {
+        let sentiment = props.article.textInfo.sentiment;
+        let className = 'article-sentiment ';
+        if (sentiment > 0) 
+            className += 'positive'
+        else if (sentiment < 0)
+            className += 'negative'
+        return className
+    }
+    const getEmotionClass = () => {
+        let sentiment = props.article.textInfo.emotion;
+        let className = 'article-sentiment ';
+        className += sentiment === 'joy' ? 'positive' : 'negative'
+        return className
+    }
+
 
     let image = <span />;
     if (props.article.imageUrl !== "")
@@ -49,14 +65,14 @@ export default function Article(props) {
             <div className="right-container">
                 <div className="sentiment-container">
                     Sentiment:
-                    <div className="article-sentiment">
+                    <div className={getSentimentClass()}>
                         {Math.round(props.article.textInfo.sentiment*100)}%
                     </div>
                 </div>
                 
                 <div className="emotion-container">
                     Emotion:
-                    <div className="article-emotion">
+                    <div className={getEmotionClass()}>
                         {capitalize(props.article.textInfo.emotion)}
                     </div>
                 </div>

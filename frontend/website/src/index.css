@@ -12,6 +12,9 @@
     --light-purple: hsl(270, 81%, 70%);
     --light-red: hsl(11, 81%, 70%);
     --red:hsl(11, 81%, 54%);
+
+    --positive: hsl(130, 50%, 54%);
+    --negative: hsl(0, 81%, 54%);
 }
 
 body {
