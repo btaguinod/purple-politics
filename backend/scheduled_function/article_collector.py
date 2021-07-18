@@ -61,8 +61,8 @@ class ArticleCollector:
 
             if content_type == 'image':
                 image_size = 0
-                if 'height' in media and 'width' in media:
-                    image_size = int(media['height']) * int(media['width'])
+                if 'width' in media:
+                    image_size = int(media['width'])
                 elif 'isdefault' in media and media['isdefault'] == 'true':
                     image_size = float('inf')
                 image_sizes[media['url']] = image_size
