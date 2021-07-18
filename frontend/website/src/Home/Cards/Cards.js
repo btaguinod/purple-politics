@@ -62,6 +62,7 @@ export default class Cards extends Component {
         })
         return (
             <div id="cards">
+                <div id="cards-heading">Most Covered Events</div>
                 {groups}
             </div>
         )

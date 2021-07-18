@@ -1,7 +1,7 @@
 
 
 #articles-container{
-    width: var(--body-width);
+    max-width: var(--body-width);
 
     margin: auto;
     padding: 0 16px; 
@@ -150,7 +150,7 @@
 }
 
 .emotion-container {
-    margin: 8px;
+    margin: 0 16px;
 }
 
 .article-emotion {
@@ -181,4 +181,41 @@
 
     
     border-top-style: solid;
+}
+
+@media only screen and (max-width: 992px) {
+    .article-description {
+        display: none;
+    }
+    .company-date-container {
+        margin: 10px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #articles {
+        grid-column: 1/span 8;
+    }
+    .image-title-container {
+        flex-direction: column;
+    }
+    .article img {
+        height: 50vw;
+        width: 100%;
+    }
+    .article-image {
+        width: 100%;
+        margin: 0;
+    }
+    .article {
+        flex-direction: column;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .right-container {
+        flex-direction: row;
+    }
+    .article-title {
+        margin-top: 10px;
+    }
 }

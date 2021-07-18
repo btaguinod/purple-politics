@@ -1,5 +1,5 @@
 #home {
-    width: var(--body-width);
+    max-width: var(--body-width);
 
     margin: auto;
     padding: 0 16px; 
@@ -10,4 +10,11 @@
     align-items: start;
 
     font-family: Archivo;
+}
+
+/* mobile */
+@media only screen and (max-width: 992px) {
+    #home {
+      grid-template-columns: repeat(3, 1fr);
+    }
 }

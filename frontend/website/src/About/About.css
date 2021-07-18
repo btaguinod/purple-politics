@@ -1,5 +1,5 @@
 #about {
-    width: var(--body-width);
+    max-width: var(--body-width);
 
     margin: auto;
     padding: 48px 16px; 

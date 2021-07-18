@@ -36,3 +36,11 @@
 .headline-title:hover {
     text-decoration-color: var(--purple);
 }
+
+/* mobile */
+
+@media only screen and (max-width: 992px) {
+    #headlines {
+      display: none;
+    }
+}
