@@ -82,6 +82,8 @@ input#button-checkbox-mobile {
         background-color: white;
 
         grid-template-columns: 1fr;
+
+        box-shadow: 0px 12px 12px  rgba(0, 0, 0, 0.05);
     }
 
     .page-link-mobile {
@@ -91,9 +93,6 @@ input#button-checkbox-mobile {
         font-size: 24px;
         line-height: 36px;
         height: 36px;
-    }
-    .page-link-mobile:last-child {
-        box-shadow: 0px 12px 12px -12px rgba(0, 0, 0, 0.05);
     }
     #button-mobile {
         position: absolute;
