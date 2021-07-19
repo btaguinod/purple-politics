@@ -310,6 +310,7 @@
         right: 0px;
         left: 0px;
         border-top-style: solid;
+        border-bottom-style: none;
         border-right-style: none;
         border-left-style: none;
     }
