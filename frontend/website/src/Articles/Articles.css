@@ -184,6 +184,12 @@
 }
 
 @media only screen and (max-width: 992px) {
+    #articles-container {
+        grid-template-columns: repeat(16, 1fr);
+    }
+    #articles {
+        grid-column: 2/span 14;
+    }
     .article-description {
         display: none;
     }
@@ -194,7 +200,7 @@
 
 @media only screen and (max-width: 768px)  and (orientation: portrait){
     #articles {
-        grid-column: 1/span 8;
+        grid-column: 1/span 16;
     }
     .image-title-container {
         flex-direction: column;

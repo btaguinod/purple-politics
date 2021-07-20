@@ -261,8 +261,6 @@
 @media only screen and (max-width: 992px) {
     [class|=card-group] {
         grid-template-columns: auto;
-                
-        margin: 0 4px;
     }
     [class|=card-base] {
         grid-column: 1 / 1;
@@ -271,7 +269,7 @@
         display: flex;
         flex-direction: row;
         padding: 0;
-        height: 25vw;
+        height: auto;
     }
     [class|=card-image] img {
         height: 100%;
