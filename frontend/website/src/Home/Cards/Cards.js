@@ -21,7 +21,7 @@ export default class Cards extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props !== prevProps && !this.state.isLoaded) {
+        if (this.props.events.length === 30 && prevProps.events.length === 0) {
             this.setState((state, props) => {
                 let eventsLength = props.events.length;
 
