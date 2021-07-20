@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Article from './Article'
 import './Articles.css'
+import { nanoid } from 'nanoid'
 
 export default function Articles(props) {
 
@@ -12,9 +13,11 @@ export default function Articles(props) {
         fetch('https://purple-politics.herokuapp.com/articles/' + eventId)
             .then(response => response.json())
             .then(data => {
-
-                setArticles(data)
-                setIsLoaded(true)
+                for (let article of data) {
+                    article['articleId'] = nanoid();
+                }
+                setArticles(data);
+                setIsLoaded(true);
             })
     }, [props.match.params.eventId])
 
@@ -25,7 +28,9 @@ export default function Articles(props) {
         <div id="articles-container">
             <div id="articles">
                 <div id="heading">Event Articles</div>
-                {articles.map(article => <Article article={article} />)}
+                {articles.map(article => 
+                    <Article key={article.articleId} article={article} />
+                )}
             </div>
         </div>
     )

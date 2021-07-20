@@ -8,7 +8,8 @@ export default class Headlines extends Component {
             <div id="headlines">
                 <div id="headlines-label">Top Headlines</div>
                 {this.props.events.map(event => 
-                    <Link 
+                    <Link
+                        key={event.eventId}
                         className="headline-title"
                         to={"articles/" + event.eventId}>
                         {event.title}

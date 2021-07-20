@@ -45,21 +45,28 @@ export default class Cards extends Component {
     render() {
         if (!this.state.isLoaded)
             return <span />
+        
         let cards = this.props.events.map((event, i) => 
-                    <Card event={event} type={this.state.cardTypes[i]}/>
+            <Card 
+                key={event.eventId} 
+                event={event} 
+                type={this.state.cardTypes[i]}
+            />
         )
 
         let i = 0;
         let groups = this.state.groupSizes.map((size, groupNum) => {
-
-                    let group = [];
-                    for (let j = 0; j < size; j++) {
-                        group.push(cards[i]);
-                        i++;
-                    }
-                    let className = 'card-group-' + String(groupNum + 1);
-                    return <div className={className}>{group}</div>
+            let group = [];
+            for (let j = 0; j < size; j++) {
+                group.push(cards[i]);
+                i++;
+            }
+            let className = 'card-group-' + String(groupNum + 1);
+            return (
+                <div key={groupNum} className={className}>{group}</div>
+            )
         })
+
         return (
             <div id="cards">
                 <div id="cards-heading">Most Covered Events</div>
