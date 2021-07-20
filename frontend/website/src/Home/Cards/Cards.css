@@ -72,6 +72,11 @@
     color: var(--near-black);
 }
 
+[class|=card-title].title-xs {
+    font-size: 16px;
+    line-height: 18px;
+}
+
 [class|=card-title].title-sm {
     font-size: 36px;
     line-height: 40px;
