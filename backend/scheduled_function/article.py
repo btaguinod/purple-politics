@@ -32,3 +32,19 @@ class Article:
                self.published_time + ', ' + \
                self.article_url + ', ' + \
                self.image_url
+
+    def __hash__(self) -> int:
+        return hash((self.company.name, self.title, self.description,
+                     self.published_time, self.article_url, self.image_url))
+
+    def __eq__(self, o: object) -> bool:
+        if isinstance(o, Article):
+            return (
+                self.company.name == o.company.name and
+                self.title == o.title and
+                self.description == o.description and
+                self.published_time == o.published_time and
+                self.article_url == o.article_url and
+                self.image_url == o.image_url
+            )
+        return False
