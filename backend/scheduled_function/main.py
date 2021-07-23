@@ -23,9 +23,10 @@ if __name__ == "__main__":
     print()
 
     print('Analyzing Sentiment:')
+    text_analyzer = TextAnalyzer()
     for article in all_articles:
         article_text = article.title + ' ' + article.description
-        article.text_info = TextAnalyzer.analyze_text(article_text)
+        article.text_info = text_analyzer.analyze_text(article_text)
     print()
 
     print('Clustering ' + str(len(all_articles)) + ' Articles:')

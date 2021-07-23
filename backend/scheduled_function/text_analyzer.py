@@ -14,10 +14,16 @@ from requests.exceptions import HTTPError
 
 
 class TextAnalyzer:
-    """Analyzes emotion and sentiment from text."""
+    """Analyzes emotion and sentiment from text.
 
-    @staticmethod
-    def analyze_text(text: str) -> TextInfo:
+    Attributes:
+        units (int): Usage units from IBM api.
+    """
+
+    def __init__(self):
+        self.units = 0
+
+    def analyze_text(self, text: str) -> TextInfo:
         """Gets emotion and sentiment from text.
 
         Args:
@@ -47,6 +53,10 @@ class TextAnalyzer:
             sentiment = response_dict['sentiment']['document']['score']
             emotions = response_dict['emotion']['document']['emotion']
             emotion = max(emotions, key=emotions.get)
+
+            usage = response_dict['usage']
+            self.units += usage['text_units'] * usage['features']
+
             return TextInfo(sentiment, emotion)
 
 

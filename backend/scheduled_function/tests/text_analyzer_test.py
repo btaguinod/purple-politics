@@ -15,13 +15,16 @@ class TextAnalyzerTest(unittest.TestCase):
 
     def test_single_text(self):
         print('Testing text:')
+        text_analyzer = TextAnalyzer()
         print('\t text: ' + self.TEST_TEXT)
-        text_info = TextAnalyzer.analyze_text(self.TEST_TEXT)
+        text_info = text_analyzer.analyze_text(self.TEST_TEXT)
         self.assertIsInstance(text_info, TextInfo)
         self.assertIsInstance(text_info.sentiment, float)
         print('\t sentiment: ' + str(text_info.sentiment))
         self.assertIsInstance(text_info.emotion, str)
         print('\t emotion: ' + str(text_info.emotion))
+        print('\t units: ' + str(text_analyzer.units))
+
 
 if __name__ == '__main__':
     unittest.main()
