@@ -3,6 +3,9 @@ from article_collector import ArticleCollector
 from company import companies
 
 import os
+
+from database import Database
+
 try:
     from config import DB_CREDENTIALS
 except ImportError:
@@ -39,33 +42,9 @@ if __name__ == "__main__":
     print('Created ' + str(len(events)) + ' clusters')
 
     print('Connecting to database:')
-    mongo_client = MongoClient(DB_CREDENTIALS)
-    db = mongo_client.get_database('purplePolitics')
-    collection = db.get_collection('events')
+    database = Database()
+
     print('\tInserting Events')
-    all_events = []
-    for event in events:
-        article_dicts = []
-        for article in event.articles:
-            article_dicts.append({
-                'title': article.title,
-                'description': article.description,
-                'publishedTime': article.published_time,
-                'articleUrl': article.article_url,
-                'imageUrl': article.image_url,
-                'textInfo': {
-                    'sentiment': article.text_info.sentiment,
-                    'emotion': article.text_info.emotion
-                },
-                'company': {
-                    'name': article.company.name,
-                    'bias': article.company.bias
-                }
-            })
-        event_dict = {
-            'eventId': str(event.event_id),
-            'articles': article_dicts
-        }
-        all_events.append(event_dict)
-    collection.insert_many(all_events)
+    database.update_events(events)
+
     print('Done')
