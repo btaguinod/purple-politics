@@ -1,9 +1,9 @@
 import unittest
 
-from scheduled_function.article import Article
-from scheduled_function.article_collector import ArticleCollector
+from article import Article
+from article_collector import ArticleCollector
 
-from scheduled_function.company import companies
+from company import companies
 
 
 class MyTestCase(unittest.TestCase):

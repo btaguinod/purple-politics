@@ -1,7 +1,7 @@
 import unittest
 
-from scheduled_function.text_analyzer import TextAnalyzer
-from scheduled_function.text_info import TextInfo
+from text_analyzer import TextAnalyzer
+from text_info import TextInfo
 
 
 class TextAnalyzerTest(unittest.TestCase):
