@@ -6,13 +6,6 @@ import os
 
 from database import Database
 
-try:
-    from config import DB_CREDENTIALS
-except ImportError:
-    DB_CREDENTIALS = os.environ['DB_CREDENTIALS']
-
-from pymongo import MongoClient
-
 from text_analyzer import TextAnalyzer
 
 if __name__ == "__main__":
