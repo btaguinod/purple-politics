@@ -25,7 +25,7 @@ class ClustererTest(unittest.TestCase):
             all_articles += articles
         print('Clustering ' + str(len(all_articles)) + ' Articles:')
 
-        clusters = Clusterer(self.THRESHOLD)
+        clusters = Clusterer(self.CLUSTER_THRESHOLD, self.ACTIVE_THRESHOLD)
         clusters.add_articles(all_articles)
 
         for i, event in enumerate(clusters.get_events()):
