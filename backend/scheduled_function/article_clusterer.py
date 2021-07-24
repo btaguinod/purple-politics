@@ -135,19 +135,27 @@ class Clusterer:
         self.threshold = threshold
         self.clusters = []
         if events is not None:
-            for event in events:
-                nlp_articles = []
-                for article in event.articles:
-                    nlp_articles.append(NLPArticle(article))
-                self.clusters.append(Cluster(nlp_articles))
-
+            self.add_events(events)
         self.index = []
         for cluster in self.clusters:
             for nlp_article in cluster.nlp_articles:
                 self.index = nlp_article.set_tf_vector(self.index)
             cluster.set_tf_vector(self.index)
 
-    def add(self, articles: list[Article]):
+    def add_events(self, events: list[Event]):
+        """Set event objects as clusters.
+
+        Args:
+            events (list[Event]): Article objects.
+        """
+
+        for event in events:
+            nlp_articles = []
+            for article in event.articles:
+                nlp_articles.append(NLPArticle(article))
+            self.clusters.append(Cluster(nlp_articles))
+
+    def add_articles(self, articles: list[Article]):
         """Add Article objects to cluster.
 
         Args:
@@ -160,7 +168,7 @@ class Clusterer:
         self.pad_vectors(nlp_articles)
         for cluster in self.clusters:
             self.pad_vectors(cluster.nlp_articles)
-        self.add_to_clusters(nlp_articles)
+        self.add_nlp_articles(nlp_articles)
 
     def get_events(self) -> list[Event]:
         """Get Event representation.
@@ -213,7 +221,7 @@ class Clusterer:
 
         return inv_doc_freq
 
-    def add_to_clusters(self, nlp_articles: list[NLPArticle]):
+    def add_nlp_articles(self, nlp_articles: list[NLPArticle]):
         """Add NLPArticle objects to stored clusters.
 
         Args:
