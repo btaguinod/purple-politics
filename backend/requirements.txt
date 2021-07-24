@@ -1,4 +1,14 @@
+# app requirements
 flask
 pymongo[srv]
 flask-cors
 gunicorn
+
+# scheduled-function requirements
+requests
+pymongo
+pymongo[srv]
+numpy
+nltk
+feedparser
+shortuuid
