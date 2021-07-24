@@ -34,8 +34,7 @@ class Article:
                self.image_url
 
     def __hash__(self) -> int:
-        return hash((self.company.name, self.title, self.description,
-                     self.published_time, self.article_url, self.image_url))
+        return hash((self.title, self.description, self.article_url))
 
     def __eq__(self, o: object) -> bool:
         if isinstance(o, Article):
