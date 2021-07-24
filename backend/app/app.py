@@ -13,7 +13,7 @@ except ImportError:
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, origins=origins)
 
 mongoClient = MongoClient(DB_CREDENTIALS)
 db = mongoClient.get_database('purplePolitics')
