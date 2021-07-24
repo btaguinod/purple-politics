@@ -22,6 +22,7 @@ class ScheduledFunction:
 
     COLLECTOR_MAX = 100
     CLUSTERER_THRESHOLD = 0.3
+    ACTIVE_THRESHOLD = 60
     DATABASE_NAME = 'purplePolitics'
     COLLECTION_NAME = 'events'
 
@@ -35,7 +36,8 @@ class ScheduledFunction:
             url = company_dict['url']
             self.article_collectors.append(ArticleCollector(company, url))
         self.text_analyzer = TextAnalyzer()
-        self.clusterer = Clusterer(self.CLUSTERER_THRESHOLD)
+        self.clusterer = Clusterer(self.CLUSTERER_THRESHOLD,
+                                   self.ACTIVE_THRESHOLD)
         if self.testing_mode:
             database_name = self.TEST_DATABASE_NAME
         else:
