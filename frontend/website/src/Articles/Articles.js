@@ -12,7 +12,7 @@ export default function Articles(props) {
 
     useEffect(() => {
         let eventId = props.match.params.eventId
-        fetch(config.backendUrl + 'articles/' + eventId)
+        fetch(config.backendUrl + '/articles/' + eventId)
             .then(response => response.json())
             .then(data => {
                 for (let article of data) {

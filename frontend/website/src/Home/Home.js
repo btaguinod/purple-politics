@@ -16,7 +16,7 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        fetch(config.backendUrl + 'events')
+        fetch(config.backendUrl + '/events')
             .then(response => response.json())
             .then(data => {
                 let cardEvents = [...data];
