@@ -55,8 +55,7 @@ def get_events():
 
 @app.route('/')
 def get_base():
-    return 'Welcome! the /events and /articles extensions are allowed here ' \
-           + str(origins)
+    return 'Welcome! the /events and /articles extensions are allowed here.'
 
 
 if __name__ == "__main__":
