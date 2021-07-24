@@ -3,6 +3,8 @@ import Article from './Article'
 import './Articles.css'
 import { nanoid } from 'nanoid'
 
+import config from '../config'
+
 export default function Articles(props) {
 
     const [articles, setArticles] = useState();
@@ -10,7 +12,7 @@ export default function Articles(props) {
 
     useEffect(() => {
         let eventId = props.match.params.eventId
-        fetch('https://purple-politics.herokuapp.com/articles/' + eventId)
+        fetch(config.backendUrl + 'articles/' + eventId)
             .then(response => response.json())
             .then(data => {
                 for (let article of data) {

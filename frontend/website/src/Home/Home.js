@@ -3,7 +3,10 @@ import Cards from './Cards/Cards'
 import Headlines from './Headlines/Headlines'
 import './Home.css'
 
+import config from '../config'
+
 export default class Home extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +16,7 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        fetch('https://purple-politics.herokuapp.com/events')
+        fetch(config.backendUrl + 'events')
             .then(response => response.json())
             .then(data => {
                 let cardEvents = [...data];
