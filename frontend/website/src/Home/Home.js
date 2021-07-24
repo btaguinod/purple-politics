@@ -17,6 +17,7 @@ export default class Home extends Component {
             .then(response => response.json())
             .then(data => {
                 let cardEvents = [...data];
+                
                 cardEvents = cardEvents.filter(cardEvent => cardEvent.imageUrl !== '')
                 cardEvents.sort((a, b) => 
                     b.companies.length - a.companies.length
@@ -25,7 +26,7 @@ export default class Home extends Component {
 
                 let headlineEvents = [...data];
                 headlineEvents.sort((a, b) => 
-                    b.latestTime - a.latestTime
+                    new Date(b.latestTime) - new Date(a.latestTime)
                 );
                 headlineEvents = headlineEvents.slice(0, 7)
                 this.setState({
