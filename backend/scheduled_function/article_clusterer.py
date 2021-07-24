@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
 import math
+from datetime import datetime
 
 from article import Article
 from event import Event
@@ -125,17 +126,21 @@ class Clusterer:
     """Clusters Articles into Events.
 
     Attributes:
-        threshold (float): Cosine similarity from 0 to 1 for clustering
+        cluster_threshold (float): Cosine similarity from 0 to 1 for clustering
             strictness.
+        active_threshold (int): Number of days until old events are inactive.
         clusters (list[Cluster]): Stored Cluster objects.
+        inactive_events (list[Events]): Event objects that won't be
+            considered in clustering.
         index (list[str]): Word index.
     """
 
-    def __init__(self, threshold: float = 0.4, events: list[Event] = None):
-        self.threshold = threshold
+    def __init__(self, cluster_threshold: float = 0.3,
+                 active_threshold: int = 60):
+        self.cluster_threshold = cluster_threshold
+        self.active_threshold = active_threshold
         self.clusters = []
-        if events is not None:
-            self.add_events(events)
+        self.inactive_events = []
         self.index = []
         for cluster in self.clusters:
             for nlp_article in cluster.nlp_articles:
@@ -143,17 +148,29 @@ class Clusterer:
             cluster.set_tf_vector(self.index)
 
     def add_events(self, events: list[Event]):
-        """Set event objects as clusters.
+        """Set event objects as clusters and label old events inactive.
 
         Args:
             events (list[Event]): Article objects.
         """
 
+        today = datetime.today()
         for event in events:
-            nlp_articles = []
-            for article in event.articles:
-                nlp_articles.append(NLPArticle(article))
-            self.clusters.append(Cluster(nlp_articles))
+            if event.active:
+                article = max(event.articles, key=lambda x: x.published_time)
+                latest_time = datetime.strptime(article.published_time,
+                                                '%Y-%m-%dT%H:%M:%SZ')
+                days_ago = (today - latest_time).days
+                if days_ago > self.cluster_threshold:
+                    event.active = False
+
+            if event.active:
+                nlp_articles = []
+                for article in event.articles:
+                    nlp_articles.append(NLPArticle(article))
+                self.clusters.append(Cluster(nlp_articles))
+            else:
+                self.inactive_events.append(event)
 
     def add_articles(self, articles: list[Article]):
         """Add Article objects to cluster.
@@ -177,7 +194,8 @@ class Clusterer:
             list[Event]: Event representation.
         """
 
-        return [cluster.get_event() for cluster in self.clusters]
+        active_events = [cluster.get_event() for cluster in self.clusters]
+        return active_events + self.inactive_events
 
     def pad_vectors(self, nlp_articles: list[NLPArticle]):
         """Pad vectors to length of word index.
@@ -227,6 +245,7 @@ class Clusterer:
         Args:
            nlp_articles (list[NLPArticle]): NLPArticles to add.
         """
+
         inv_doc_freq = self.get_inv_doc_freq(nlp_articles)
         for nlp_article in nlp_articles:
             closest_dist = 0
@@ -236,7 +255,8 @@ class Clusterer:
                 new_dist = vector_similarity(
                     np.multiply(nlp_article.vector, inv_doc_freq),
                     np.multiply(cluster.vector, inv_doc_freq))
-                if new_dist > self.threshold and new_dist > closest_dist:
+                threshold = self.cluster_threshold
+                if new_dist > threshold and new_dist > closest_dist:
                     closest_dist = new_dist
                     closest_cluster = cluster
 

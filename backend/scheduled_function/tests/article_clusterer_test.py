@@ -8,7 +8,8 @@ from event import Event
 
 
 class ClustererTest(unittest.TestCase):
-    THRESHOLD = 0.3
+    CLUSTER_THRESHOLD = 0.3
+    ACTIVE_THRESHOLD = 60
 
     def test_add(self):
         print('Testing add function:')
