@@ -53,5 +53,11 @@ def get_events():
     return jsonify(events)
 
 
+@app.route('/')
+def get_base():
+    return 'Welcome! the /events and /articles extensions are allowed here ' \
+           + str(origins)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
