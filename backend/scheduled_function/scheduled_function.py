@@ -17,7 +17,7 @@ class ScheduledFunction:
 
     COLLECTOR_MAX = 100
     CLUSTERER_THRESHOLD = 0.3
-    DATABASE_NAME = 'purplePoliticsTest'
+    DATABASE_NAME = 'purplePolitics'
     COLLECTION_NAME = 'events'
 
     def __init__(self):
