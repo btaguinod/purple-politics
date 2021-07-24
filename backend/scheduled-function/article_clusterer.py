@@ -56,14 +56,14 @@ class NLPArticle:
         self.vector = np.array(tf) / len(tokens)
         return new_index
 
-    def pad_tf_vector(self, new_len: int):
+    def pad_tf_vector(self, padding_len: int):
         """Pad the term frequency vector with zeros.
 
         Args:
-            new_len (int): Length vector will be extended to.
+            padding_len (int): Length vector will be extended by.
         """
 
-        self.vector = np.pad(self.vector, (0, new_len))
+        self.vector = np.pad(self.vector, (0, padding_len))
 
     def preprocess_text(self) -> list[str]:
         """Turn text into tokens without stopwords and punctuation.
@@ -92,9 +92,10 @@ class Cluster:
             NLPArticle objects.
     """
 
-    def __init__(self, nlp_articles: list[NLPArticle]):
+    def __init__(self, nlp_articles: list[NLPArticle], event_id: str = None):
         self.nlp_articles = nlp_articles
         self.vector = None
+        self.event_id = event_id
 
     def set_tf_vector(self, index: list[str]):
         """Calculate and store average term frequency vector.
@@ -109,6 +110,15 @@ class Cluster:
             self.vector += nlp_article.vector
         self.vector /= len(self.nlp_articles)
 
+    def pad_tf_vector(self, padding_len: int):
+        """Pad the term frequency vector with zeros.
+
+        Args:
+            padding_len (int): Length vector will be extended by.
+        """
+
+        self.vector = np.pad(self.vector, (0, padding_len))
+
     def get_event(self) -> Event:
         """Gets event representation.
 
@@ -119,7 +129,7 @@ class Cluster:
         articles = []
         for nlp_article in self.nlp_articles:
             articles.append(nlp_article.article)
-        return Event(articles)
+        return Event(articles, self.event_id)
 
 
 class Clusterer:
@@ -142,10 +152,6 @@ class Clusterer:
         self.clusters = []
         self.inactive_events = []
         self.index = []
-        for cluster in self.clusters:
-            for nlp_article in cluster.nlp_articles:
-                self.index = nlp_article.set_tf_vector(self.index)
-            cluster.set_tf_vector(self.index)
 
     def add_events(self, events: list[Event]):
         """Set event objects as clusters and label old events inactive.
@@ -168,9 +174,18 @@ class Clusterer:
                 nlp_articles = []
                 for article in event.articles:
                     nlp_articles.append(NLPArticle(article))
-                self.clusters.append(Cluster(nlp_articles))
+                self.clusters.append(Cluster(nlp_articles, event.event_id))
             else:
                 self.inactive_events.append(event)
+
+        for cluster in self.clusters:
+            for nlp_article in cluster.nlp_articles:
+                self.index = nlp_article.set_tf_vector(self.index)
+            index_len = len(self.index)
+            for nlp_article in cluster.nlp_articles:
+                padding_len = index_len - len(nlp_article.vector)
+                nlp_article.pad_tf_vector(padding_len)
+            cluster.set_tf_vector(self.index)
 
     def add_articles(self, articles: list[Article]):
         """Add Article objects to cluster.
@@ -182,10 +197,38 @@ class Clusterer:
         nlp_articles = [NLPArticle(article) for article in articles]
         for nlp_article in nlp_articles:
             self.index = nlp_article.set_tf_vector(self.index)
-        self.pad_vectors(nlp_articles)
+
+        index_len = len(self.index)
+        for nlp_article in nlp_articles:
+            padding_len = index_len - len(nlp_article.vector)
+            nlp_article.pad_tf_vector(padding_len)
         for cluster in self.clusters:
-            self.pad_vectors(cluster.nlp_articles)
-        self.add_nlp_articles(nlp_articles)
+            padding_len = index_len - len(cluster.vector)
+            for cluster_nlp_article in cluster.nlp_articles:
+                cluster_nlp_article.pad_tf_vector(padding_len)
+            cluster.pad_tf_vector(padding_len)
+
+        inv_doc_freq = self.get_inv_doc_freq(nlp_articles)
+        for nlp_article in nlp_articles:
+            closest_dist = 0
+            closest_cluster = None
+
+            for cluster in self.clusters:
+                new_dist = vector_similarity(
+                    np.multiply(nlp_article.vector, inv_doc_freq),
+                    np.multiply(cluster.vector, inv_doc_freq))
+                threshold = self.cluster_threshold
+                if new_dist > threshold and new_dist > closest_dist:
+                    closest_dist = new_dist
+                    closest_cluster = cluster
+
+            if closest_cluster is None:
+                new_cluster = Cluster([nlp_article])
+                self.clusters.append(new_cluster)
+                new_cluster.set_tf_vector(self.index)
+            else:
+                closest_cluster.nlp_articles.append(nlp_article)
+                closest_cluster.set_tf_vector(self.index)
 
     def get_events(self) -> list[Event]:
         """Get Event representation.
@@ -196,18 +239,6 @@ class Clusterer:
 
         active_events = [cluster.get_event() for cluster in self.clusters]
         return active_events + self.inactive_events
-
-    def pad_vectors(self, nlp_articles: list[NLPArticle]):
-        """Pad vectors to length of word index.
-
-        Args:
-            nlp_articles (list[NLPArticle]): NLPArticles to pad.
-        """
-
-        index_len = len(self.index)
-        for nlp_article in nlp_articles:
-            padding_len = index_len - len(nlp_article.vector)
-            nlp_article.pad_tf_vector(padding_len)
 
     def get_inv_doc_freq(self, nlp_articles: list[NLPArticle]) -> np.ndarray:
         """Calculate inverse document frequency.
@@ -238,35 +269,6 @@ class Clusterer:
                 inv_doc_freq[i] = num
 
         return inv_doc_freq
-
-    def add_nlp_articles(self, nlp_articles: list[NLPArticle]):
-        """Add NLPArticle objects to stored clusters.
-
-        Args:
-           nlp_articles (list[NLPArticle]): NLPArticles to add.
-        """
-
-        inv_doc_freq = self.get_inv_doc_freq(nlp_articles)
-        for nlp_article in nlp_articles:
-            closest_dist = 0
-            closest_cluster = None
-
-            for cluster in self.clusters:
-                new_dist = vector_similarity(
-                    np.multiply(nlp_article.vector, inv_doc_freq),
-                    np.multiply(cluster.vector, inv_doc_freq))
-                threshold = self.cluster_threshold
-                if new_dist > threshold and new_dist > closest_dist:
-                    closest_dist = new_dist
-                    closest_cluster = cluster
-
-            if closest_cluster is None:
-                new_cluster = Cluster([nlp_article])
-                self.clusters.append(new_cluster)
-                new_cluster.set_tf_vector(self.index)
-            else:
-                closest_cluster.nlp_articles.append(nlp_article)
-                closest_cluster.set_tf_vector(self.index)
 
 
 def vector_similarity(a: np.ndarray, b: np.ndarray) -> float:

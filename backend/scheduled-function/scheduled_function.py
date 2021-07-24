@@ -4,6 +4,11 @@ from text_analyzer import TextAnalyzer
 from article_clusterer import Clusterer
 from database import Database
 
+import sys
+import argparse
+
+from text_info import TextInfo
+
 
 class ScheduledFunction:
     """Function that collects, analyzes, clusters, and stores news articles.
@@ -20,7 +25,10 @@ class ScheduledFunction:
     DATABASE_NAME = 'purplePolitics'
     COLLECTION_NAME = 'events'
 
-    def __init__(self):
+    TEST_DATABASE_NAME = 'purplePoliticsTest'
+
+    def __init__(self, testing_mode: bool):
+        self.testing_mode = testing_mode
         self.article_collectors = []
         for company_dict in companies:
             company = company_dict['company']
@@ -28,12 +36,16 @@ class ScheduledFunction:
             self.article_collectors.append(ArticleCollector(company, url))
         self.text_analyzer = TextAnalyzer()
         self.clusterer = Clusterer(self.CLUSTERER_THRESHOLD)
-        self.database = Database(self.DATABASE_NAME, self.COLLECTION_NAME)
+        if self.testing_mode:
+            database_name = self.TEST_DATABASE_NAME
+        else:
+            database_name = self.DATABASE_NAME
+        self.database = Database(database_name, self.COLLECTION_NAME)
 
     def main(self):
         """Collects, analyzes, clusters, and stores news articles."""
 
-        print('Retrieving events from database:')
+        print('\nRetrieving events from database:')
         events = self.database.get_events()
         print(f'\tFound {len(events)} events\n')
 
@@ -52,13 +64,16 @@ class ScheduledFunction:
         print(f'Found {len(new_articles)} new articles total\n')
 
         print('Removing repeat articles:')
-        for article in new_articles:
+        for article in new_articles.copy():
             if article in old_articles:
                 new_articles.remove(article)
         print(f'{len(new_articles)} articles remaining\n')
 
         print('Analyzing article text:')
         for article in new_articles:
+            if self.testing_mode:
+                article.text_info = TextInfo(0, 'TestTextInfo')
+                continue
             article_text = article.title + ' ' + article.description
             article.text_info = self.text_analyzer.analyze_text(article_text)
         print(f'Used {self.text_analyzer.units} units\n')
@@ -74,6 +89,17 @@ class ScheduledFunction:
         print('Done\n')
 
 
+def to_boolean(text: str):
+    if text.lower() == 'true':
+        return True
+    elif text.lower() == 'false':
+        return False
+    raise argparse.ArgumentTypeError('Value must be true or false.')
+
+
 if __name__ == "__main__":
-    function = ScheduledFunction()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('testing', type=to_boolean, help='run in testing mode')
+    args = parser.parse_args()
+    function = ScheduledFunction(args.testing)
     function.main()

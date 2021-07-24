@@ -89,7 +89,3 @@ class Database:
             search_query = {'eventId': event.event_id}
             update_query = {'$set': {'articles': article_dicts}}
             self.collection.update_one(search_query, update_query, True)
-
-
-
-

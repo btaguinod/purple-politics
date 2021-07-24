@@ -39,12 +39,18 @@ class Article:
 
     def __eq__(self, o: object) -> bool:
         if isinstance(o, Article):
-            return (
-                self.company.name == o.company.name and
+            same = (
                 self.title == o.title and
                 self.description == o.description and
-                self.published_time == o.published_time and
-                self.article_url == o.article_url and
-                self.image_url == o.image_url
+                self.article_url == o.article_url
+            )
+            partially_same = (
+                self.title == o.title or
+                self.description == o.description or
+                self.article_url == o.article_url
+            )
+
+            return (
+                same
             )
         return False
