@@ -222,7 +222,7 @@
     border-width: 1px;
 }
 
-[class|=card-base-md]::before {
+[class|=card-base-md]:first-child:before {
     bottom: -16px;
     border-bottom-style: solid;
 }
