@@ -11,7 +11,8 @@ export default class Home extends Component {
         super(props);
         this.state = {
             cardEvents: [],
-            headlineEvents: []
+            headlineEvents: [],
+            isLoaded: false
         }
     }
 
@@ -34,12 +35,16 @@ export default class Home extends Component {
                 headlineEvents = headlineEvents.slice(0, 7)
                 this.setState({
                     cardEvents,
-                    headlineEvents
+                    headlineEvents,
+                    isLoaded: true
                 });
             })
     }
 
     render() {
+        if (!this.state.isLoaded)
+            return <div />
+        
         return (
             <div id="home">
                 <Cards events={this.state.cardEvents}/>

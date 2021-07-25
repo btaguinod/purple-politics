@@ -5,57 +5,47 @@ import './Cards.css'
 export default class Cards extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cardTypes: [
-                'lg',
-                'sm',
-                'sm',
-                'md-1', 
-                'md-2',
-                'sm',
-                'lg'
-            ],
-            groupSizes: [3, 2, 3],
-            isLoaded: false
+        let groupSizes = [3, 2, 3]
+
+        let eventsLength = props.events.length;
+
+        let lastGroupSize = eventsLength;
+        for (let size of groupSizes)
+            lastGroupSize -= size;
+
+        groupSizes = groupSizes.concat([lastGroupSize]);
+
+        let cardTypes = [
+            'lg',
+            'sm',
+            'sm',
+            'md-1', 
+            'md-2',
+            'sm',
+            'lg'
+        ];
+
+        let extraCardTypes = [];
+        for (let i = 0; i <= lastGroupSize; i++) {
+            extraCardTypes.push('sm')
         }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.events.length !== prevProps.events.length) {
-            this.setState((state, props) => {
-                let eventsLength = props.events.length;
-
-                let lastGroupSize = eventsLength;
-                for (let size of state.groupSizes)
-                    lastGroupSize -= size;
-
-                let groupSizes = state.groupSizes.concat([lastGroupSize]);
-
-                let extraCardTypes = [];
-                for (let i = 0; i <= lastGroupSize; i++) {
-                    extraCardTypes.push('sm')
-                }
-                let cardTypes = state.cardTypes.concat(extraCardTypes)
-
-                return { groupSizes, cardTypes, isLoaded: true }
-            })
-        }
+        cardTypes = cardTypes.concat(extraCardTypes)
+        
+        this.cardTypes = cardTypes
+        this.groupSizes = groupSizes
     }
 
     render() {
-        if (!this.state.isLoaded)
-            return <span />
-        
         let cards = this.props.events.map((event, i) => 
             <Card 
                 key={event.eventId} 
                 event={event} 
-                type={this.state.cardTypes[i]}
+                type={this.cardTypes[i]}
             />
         )
 
         let i = 0;
-        let groups = this.state.groupSizes.map((size, groupNum) => {
+        let groups = this.groupSizes.map((size, groupNum) => {
             let group = [];
             for (let j = 0; j < size; j++) {
                 group.push(cards[i]);
