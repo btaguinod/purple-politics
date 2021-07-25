@@ -12,7 +12,7 @@ export default function About() {
                 <br /><br />
                 Rather, they are <span className="bold purple">purple</span>. A mix of both political sides. 
                 <br /><br />
-                By giving you <span className="bold">media biases</span> , <span className="bold">text emotion</span>, and <span className="bold">text sentiment</span>, this website gives you a deeper view into the ethical complexity of an article. 
+                By giving you <span className="bold">media biases</span>, <span className="bold">text emotion</span>, and <span className="bold">text sentiment</span>, this website gives you a deeper view into the ethical complexity of an article. 
                 <br /><br />
                 This allows you to decide for yourself where your beliefs stand, allowing you to form an option that aligns with your beliefs rather than the beliefs of singular sources.
             </div>
