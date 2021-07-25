@@ -186,6 +186,7 @@
 @media only screen and (max-width: 992px) {
     #articles-container {
         grid-template-columns: repeat(16, 1fr);
+        column-gap: 0px;
     }
     #articles {
         grid-column: 2/span 14;
