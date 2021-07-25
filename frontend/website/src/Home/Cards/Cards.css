@@ -21,8 +21,6 @@
 
     position: relative;
     display: block;
-    /* top: 50%;
-    transform: translateY(-50%); */
 }
 
 [class|=card-group] {
