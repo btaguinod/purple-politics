@@ -1,0 +1,26 @@
+#footer {
+    background-color: var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 16px;
+
+    font-family: Archivo;
+    font-size: 16px;
+    color: var(--near-black);
+
+    height: var(--footer-height);
+}
+
+#footer a {
+    font-weight: 700;
+
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+
+#footer a:hover {
+    text-decoration-color: var(--purple);
+}
