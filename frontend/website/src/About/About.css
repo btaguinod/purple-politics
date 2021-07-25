@@ -29,10 +29,45 @@
     color: var(--blue);
 }
 
+.light-blue {
+    color: var(--light-blue)
+}
+
+.light-purple {
+    color: var(--light-purple)
+}
+
+.light-red {
+    color: var(--light-red)
+}
+
 .red {
     color: var(--red);
 }
 
 .bold {
     font-weight: bold;
+}
+
+#about a {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+
+#about a:hover {
+    text-decoration-color: var(--gray);
+}
+
+.split {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
+@media only screen and (max-width: 992px) {
+    .split {
+        grid-template-columns: 1fr;
+    }
 }
