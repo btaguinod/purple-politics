@@ -1,5 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/234cb037-2206-4eef-82c7-7a27418a5566/deploy-status)](https://app.netlify.com/sites/purplepolitics/deploys)
-# Purple Politics
+# Purple Politics [(Website)](https://purplepolitics.netlify.app/)
 ## Purpose
 
 Purple Politics is a website designed to help you understand all perspectives on recent political events.
