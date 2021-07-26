@@ -92,13 +92,14 @@
     margin: 16px 0;
 }
 
-.company-date-container {
+.date-company-container {
     color: var(--gray);
     font-size: 18px;
+    font-weight: 600;
 }
 
 .article-company {
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .article-bias {

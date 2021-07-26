@@ -49,16 +49,18 @@ export default function Article(props) {
                 <div className="article-description">
                     {props.article.description}
                 </div>
-                <div className="company-date-container">
+                <div className="date-company-container">
+                    
+                    <span className="article-date">
+                        {formatDate(new Date(props.article.publishedTime))}
+                    </span>
+                    
+                    {' | '}
                     <span className="article-company">
                         {props.article.company.name + ' '}
                     </span>
                     <span className={"article-bias " + bias.toLowerCase()}>
                         {bias}
-                    </span>
-                    {' | '}
-                    <span className="article-date">
-                        {formatDate(new Date(props.article.publishedTime))}
                     </span>
                 </div>
             </div>
