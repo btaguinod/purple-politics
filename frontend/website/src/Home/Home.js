@@ -17,25 +17,26 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        fetch(config.backendUrl + '/events')
+        fetch(config.backendUrl + '/home-events')
             .then(response => response.json())
             .then(data => {
-                let cardEvents = [...data];
-                
-                cardEvents = cardEvents.filter(cardEvent => cardEvent.imageUrl !== '')
-                cardEvents.sort((a, b) => 
-                    b.companies.length - a.companies.length
-                );
-                cardEvents = cardEvents.slice(0, 30)
+                // let cardEvents = data['cardEvents'];
 
-                let headlineEvents = [...data];
-                headlineEvents.sort((a, b) => 
-                    new Date(b.latestTime) - new Date(a.latestTime)
-                );
-                headlineEvents = headlineEvents.slice(0, 7)
+                
+                // cardEvents = cardEvents.filter(cardEvent => cardEvent.imageUrl !== '')
+                // cardEvents.sort((a, b) => 
+                //     b.companies.length - a.companies.length
+                // );
+                // cardEvents = cardEvents.slice(0, 30)
+
+                // let headlineEvents = [...data];
+                // headlineEvents.sort((a, b) => 
+                //     new Date(b.latestTime) - new Date(a.latestTime)
+                // );
+                // headlineEvents = headlineEvents.slice(0, 7)
                 this.setState({
-                    cardEvents,
-                    headlineEvents,
+                    cardEvents: data['cardEvents'],
+                    headlineEvents: data['headlineEvents'],
                     isLoaded: true
                 });
             })

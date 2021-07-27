@@ -15,10 +15,11 @@ export default function Articles(props) {
         fetch(config.backendUrl + '/articles/' + eventId)
             .then(response => response.json())
             .then(data => {
-                for (let article of data) {
+                let dataArticles = data['articles']
+                for (let article of dataArticles) {
                     article['articleId'] = nanoid();
                 }
-                setArticles(data);
+                setArticles(dataArticles);
                 setIsLoaded(true);
             })
     }, [props.match.params.eventId])
