@@ -1,7 +1,8 @@
 from flask import Flask
 from pymongo import MongoClient
 from flask_cors import CORS
-from flask_restful import Resource, Api, request, abort
+from flask_restful import Resource, Api
+from utils.get_param import get_int_param, get_bool_param, get_string_param
 
 import os
 try:
@@ -20,34 +21,21 @@ mongoClient = MongoClient(DB_CREDENTIALS)
 db = mongoClient.get_database('purplePolitics')
 collection = db.get_collection('events')
 
-
-def get_param(param_name, default, is_acceptable, to_value):
-    param_string = request.args.get(param_name)
-    if param_string is None:
-        param_string = default
-    elif not is_acceptable(param_string):
-        abort(400, message=f'"{param_string}" is not a valid {param_name} '
-                           f'value')
-    return to_value(param_string)
-
-
 class Articles(Resource):
-    DEFAULTS = {
+    DEFAULT_PARAMS = {
         'sort': 'time',
-        'ascending': 'false',
-        'max': '10',
-        'page': '1'
+        'ascending': False,
+        'max': 10,
+        'page': 1
     }
 
     def get(self, event_id):
-        sort = get_param('sort', 'time',
-                         ['time', 'bias'].__contains__,
-                         lambda x: x)
-        ascending = get_param('ascending', 'false',
-                              ['true', 'false'].__contains__,
-                              lambda x: x == 'true')
-        max_results = get_param('max', self.DEFAULTS['max'], str.isdigit, int)
-        page = get_param('page', self.DEFAULTS['page'], str.isdigit, int)
+        defaults = self.DEFAULT_PARAMS
+
+        sort = get_string_param('sort', defaults['sort'], ['time', 'bias'])
+        ascending = get_bool_param('ascending', defaults['ascending'])
+        max_results = get_int_param('max', defaults['max'])
+        page = get_int_param('page', defaults['page'])
 
         event = collection.find_one({"eventId": event_id})
         articles = event['articles']
@@ -65,27 +53,33 @@ class Articles(Resource):
 
 
 class Events(Resource):
-    DEFAULTS = {
+    DEFAULT_PARAMS = {
         'sort': 'latestTime',
-        'ascending': 'false',
-        'max': '10',
-        'page': '1'
+        'ascending': False,
+        'removeNoImg': False,
+        'max': 10,
+        'page': 1
     }
 
     SORT_TYPES = ['latestTime', 'uniqueCompanies']
 
     def get(self):
-        sort = get_param('sort', self.DEFAULTS['sort'],
-                         self.SORT_TYPES.__contains__,
-                         lambda x: x)
-        ascending = get_param('ascending', self.DEFAULTS['ascending'],
-                              ['true', 'false'].__contains__,
-                              lambda x: x == 'true')
-        max_results = get_param('max', self.DEFAULTS['max'], str.isdigit, int)
-        page = get_param('page', self.DEFAULTS['page'], str.isdigit, int)
+        defaults = self.DEFAULT_PARAMS
+
+        sort = get_string_param('sort', defaults['sort'], self.SORT_TYPES)
+        ascending = get_bool_param('ascending', defaults['ascending'])
+        remove_no_img = get_bool_param('removeNoImg',
+                                        defaults['removeNoImg'])
+        max_results = get_int_param('max', defaults['max'])
+        page = get_int_param('page', defaults['page'])
 
         events = self.get_database_events()
         events = self.sort_events(events, sort, ascending)
+
+        if remove_no_img:
+            def has_img(event): return event['imageUrl'] != ""
+            events = list(filter(has_img, events))
+
         return {
             'count': len(events),
             'events': events[:max_results * page]
@@ -126,42 +120,52 @@ class Events(Resource):
 
         return sorted(events, key=key, reverse=(not ascending))
 
+
 class HomeEvents(Events):
-    DEFAULTS = {
+    DEFAULT_PARAMS = {
         'cardsSort': 'uniqueCompanies',
-        'cardsAscending': 'false',
-        'cardsMax': '30',
+        'cardsAscending': False,
+        'cardsRemoveNoImg': True,
+        'cardsMax': 30,
+
         'headlinesSort': 'latestTime',
-        'headlinesAscending': 'false',
-        'headlinesMax': '7'
+        'headlinesAscending': False,
+        'headlinesRemoveNoImg': False,
+        'headlinesMax': 7
     }
+
     def get(self):
-        cards_sort = get_param('cardsSort', self.DEFAULTS['cardsSort'],
-                               self.SORT_TYPES.__contains__,
-                               lambda x: x)
-        cards_ascending = get_param('cardsAscending',
-                                    self.DEFAULTS['cardsAscending'],
-                                    ['true', 'false'].__contains__,
-                                    lambda x: x == 'true')
-        cards_max_results = get_param('cardsMax', self.DEFAULTS['cardsMax'],
-                                      str.isdigit, int)
-        headlines_sort = get_param('headlinesSort',
-                                   self.DEFAULTS['headlinesSort'],
-                                   self.SORT_TYPES.__contains__,
-                                   lambda x: x)
-        headlines_ascending = get_param('headlinesAscending',
-                                        self.DEFAULTS['headlinesAscending'],
-                                        ['true', 'false'].__contains__,
-                                        lambda x: x == 'true')
-        headlines_max_results = get_param('headlinesMax',
-                                          self.DEFAULTS['headlinesMax'],
-                                          str.isdigit, int)
+        defaults = self.DEFAULT_PARAMS
+
+        cards_sort = get_string_param('cardsSort', defaults['cardsSort'],
+                                      self.SORT_TYPES)
+        cards_ascending = get_bool_param('cardsAscending',
+                                         defaults['cardsAscending'])
+        cards_max_results = get_int_param('cardsMax', defaults['cardsMax'])
+        cards_remove_no_img = get_bool_param('cardsRemoveNoImg',
+                                              defaults['cardsRemoveNoImg'])
+        headlines_sort = get_string_param('headlinesSort',
+                                          defaults['headlinesSort'],
+                                          self.SORT_TYPES)
+        headlines_ascending = get_bool_param('headlinesAscending',
+                                             defaults['headlinesAscending'])
+        headlines_remove_no_img = get_bool_param('headlinesRemoveNoImg',
+                                                  defaults[
+                                                      'headlinesRemoveNoImg'])
+        headlines_max_results = get_int_param('headlinesMax',
+                                              defaults['headlinesMax'])
 
         events = self.get_database_events()
 
         card_events = self.sort_events(events, cards_sort, cards_ascending)
         headline_events = self.sort_events(events, headlines_sort,
                                            headlines_ascending)
+
+        def has_img(event): return event['imageUrl'] != ""
+        if cards_remove_no_img:
+            card_events = list(filter(has_img, card_events))
+        if headlines_remove_no_img:
+            headline_events = list(filter(has_img, headline_events))
 
         return {
             'cardEvents': card_events[:cards_max_results],
