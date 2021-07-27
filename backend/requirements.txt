@@ -1,7 +1,8 @@
 # app requirements
 flask
-pymongo[srv]
 flask-cors
+flask-restful
+pymongo[srv]
 gunicorn
 
 # scheduled-function requirements
