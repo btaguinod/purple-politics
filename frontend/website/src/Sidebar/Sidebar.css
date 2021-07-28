@@ -81,7 +81,7 @@
         top: 0;
         display: block;
         width: 100%;
-        margin-top: 24px;
+        margin-bottom: -8px;
     }
     .sidebar-heading {
         display: inline;
@@ -103,9 +103,9 @@
         content: "";
 
         position: absolute;
-        left: 0;
-        right: 0;
-        top: -16px;
+        left: 4px;
+        right: 4px;
+        top: -8px;
         bottom: 0;
     
         z-index: -1;
@@ -120,9 +120,6 @@
 @media only screen and (max-width: 768px)  and (orientation: portrait){
     .sidebar-heading {
         display: none;
-    }
-    .sidebar-button {
-        /* font-size: 18px; */
     }
     .sidebar-buttons:nth-child(2):before {
         border-left: none;
