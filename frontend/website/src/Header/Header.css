@@ -44,17 +44,13 @@ header {
     font-size: 24px;
 }
 
-#page-links {
+.page-links {
     display: grid;
     column-gap: 32px;
     grid-template-columns: repeat(2, 1fr);
 }
 
-[class$=mobile] {
-    display: none;
-}
-
-input#button-checkbox-mobile {
+input#button-checkbox.mobile {
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -62,17 +58,25 @@ input#button-checkbox-mobile {
     z-index: 100;
 }
 
-@media only screen and (max-width: 768px) and (orientation: portrait) {
-    [class$=mobile] {
-        display: block;
+@media only screen and (max-width: 992px) {
+    .page-links.mobile {
+        display: none;
     }
+}
+
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+    input {
+        cursor: pointer;
+    }
+
     #logo {
         font-size: 32px;
     }
-    #page-links {
+    .page-links {
         display: none;
     }
-    #page-links-mobile {
+    .page-links.mobile {
+        display: grid;
         position: fixed;
         top: 47px;
         right: 0;
@@ -84,7 +88,7 @@ input#button-checkbox-mobile {
         box-shadow: 0px 12px 12px  rgba(0, 0, 0, 0.05);
     }
 
-    .page-link-mobile {
+    .page-link {
         text-align: left;
         box-sizing: border-box;
         padding-left: 32px;
@@ -92,16 +96,16 @@ input#button-checkbox-mobile {
         line-height: 36px;
         height: 36px;
     }
-    #button-mobile {
+    #button {
         position: absolute;
         right: 12px;
         width: 48px;
         height: 48px;
     }
-    input#button-checkbox-mobile:not(:checked) + #page-links-mobile {
+    input#button-checkbox:not(:checked) + .page-links {
         display: none;
     }
-    #button-mobile span {
+    #button span {
         left: 0;
         right: 0;
 
@@ -116,15 +120,15 @@ input#button-checkbox-mobile {
         z-index: -1;
     }
 
-    #button-mobile span:nth-last-child(1) {
+    #button span:nth-last-child(1) {
         top: 12px;
     }
-    #button-mobile span:nth-last-child(2) {
+    #button span:nth-last-child(2) {
         top: 0px;
         bottom: 0px;
         margin: auto;
     }
-    #button-mobile span:nth-last-child(3) {
+    #button span:nth-last-child(3) {
         bottom: 12px;
     }
   }

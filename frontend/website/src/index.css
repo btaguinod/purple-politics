@@ -22,6 +22,11 @@ body {
     margin: 0;
 }
 
+button {
+    background: none;
+    border: none;
+}
+
 html {
     overflow-y: scroll;
 }
@@ -29,4 +34,14 @@ html {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.mobile {
+    display: none
+}
+
+@media only screen and (max-width: 992px) {
+    .mobile {
+        display: block;
+    }
 }
