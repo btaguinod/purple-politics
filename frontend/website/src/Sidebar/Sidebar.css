@@ -1,0 +1,130 @@
+.sidebar {
+    top: 64px;
+
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+
+.sidebar-heading {
+    font-family: Archivo;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--near-black);
+
+    padding: 6px 0;
+}
+
+.sidebar-buttons {
+    position: relative;
+
+    padding: 4px 0;
+}
+
+.sidebar-buttons:nth-child(2):before {
+    right: 0;
+}
+
+.sidebar-buttons::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 16px;
+    top: 0;
+    bottom: 0;
+
+    z-index: -1;
+
+    border-color: gray;
+    border-width: 1px;
+
+    border-top-style: solid;
+}
+
+.sidebar-button {
+    display: block;
+
+    font-family: Archivo;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray);
+
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    transition: text-decoration 0.3s;
+    
+    padding: 2px 0;
+}
+
+.sidebar-button:hover {
+    cursor: pointer;
+    text-decoration-color: var(--near-black);
+}
+
+.sidebar-button.active{
+    color: var(--near-black);
+    font-weight: 700;
+}
+
+.sidebar-button.active:hover {
+    cursor: default;
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
+
+@media only screen and (max-width: 992px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar.mobile {
+        position: relative;
+        top: 0;
+        display: block;
+        width: 100%;
+        margin-top: 24px;
+    }
+    .sidebar-heading {
+        display: inline;
+        padding-right: 8px;
+    }
+    .sidebar-buttons {
+        display: inline;
+        padding: 0 4px;
+    }
+    .sidebar-button {
+        display: inline;
+        padding: 0 4px;
+    }
+    .sidebar-buttons::before {
+        border-left-style: solid;
+        border-top-style: none;
+    }
+    .sidebar.mobile::before {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -16px;
+        bottom: 0;
+    
+        z-index: -1;
+    
+        border-color: var(--light-gray);
+        border-width: 1px;
+    
+        border-top-style: solid;
+    }
+}
+
+@media only screen and (max-width: 768px)  and (orientation: portrait){
+    .sidebar-heading {
+        display: none;
+    }
+    .sidebar-button {
+        /* font-size: 18px; */
+    }
+    .sidebar-buttons:nth-child(2):before {
+        border-left: none;
+    }
+}
