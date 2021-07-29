@@ -21,8 +21,8 @@ const orderParams = {
 export default function Articles(props) {
     const [articles, setArticles] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
-    const [sort, setSort] = useState('Bias')
-    const [order, setOrder] = useState('Ascending')
+    const [sort, setSort] = useState('Date')
+    const [order, setOrder] = useState('Descending')
 
     useEffect(() => {
         let eventId = props.match.params.eventId

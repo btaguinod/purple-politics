@@ -47,7 +47,7 @@ header {
 .page-links {
     display: grid;
     column-gap: 32px;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, auto);
 }
 
 input#button-checkbox.mobile {

@@ -20,20 +20,6 @@ export default class Home extends Component {
         fetch(config.backendUrl + '/home-events')
             .then(response => response.json())
             .then(data => {
-                // let cardEvents = data['cardEvents'];
-
-                
-                // cardEvents = cardEvents.filter(cardEvent => cardEvent.imageUrl !== '')
-                // cardEvents.sort((a, b) => 
-                //     b.companies.length - a.companies.length
-                // );
-                // cardEvents = cardEvents.slice(0, 30)
-
-                // let headlineEvents = [...data];
-                // headlineEvents.sort((a, b) => 
-                //     new Date(b.latestTime) - new Date(a.latestTime)
-                // );
-                // headlineEvents = headlineEvents.slice(0, 7)
                 this.setState({
                     cardEvents: data['cardEvents'],
                     headlineEvents: data['headlineEvents'],

@@ -1,0 +1,126 @@
+#news-events-container {
+    max-width: var(--body-width);
+
+    margin: auto;
+    padding: 0 16px; 
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 32px;
+    align-items: start;
+
+    min-height: calc(100vh - var(--footer-height));
+
+    font-family: Archivo;
+    color: var(--near-black)
+}
+
+#news-events-heading {
+    font-size: 36px;
+    font-weight: 600;
+
+    margin: 16px 0;
+}
+
+#news-events {
+    grid-column: 2/span 6;
+
+    margin-top: 48px;
+}
+
+.news-event-base {
+    margin: 32px 0;
+
+    position: relative;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 16px;
+}
+
+.news-event-base img {
+    object-fit: cover;
+    height: 100%;
+    width: 150px;
+    display: block;
+}
+
+.news-event-text {
+    font-family: Archivo;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.news-event-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--near-black);
+}
+
+.news-event-date {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray);
+
+    margin: 6px 0;
+}
+
+.news-event-companies {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--gray);
+}
+
+.news-event-base::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -16px;
+    bottom: 0;
+
+    z-index: -1;
+
+    border-color: var(--light-gray);
+    border-width: 1px;
+
+    border-top-style: solid;
+}
+
+@media only screen and (max-width: 768px)  and (orientation: portrait) {
+    #news-events-container {
+        column-gap: 0vh;
+    }
+
+    #news-events {
+        grid-column: 1/span 8;
+    }
+
+    .news-event-base {
+        grid-template-columns: auto;
+    }
+
+    .news-event-base img {
+        object-fit: cover;
+        height: 50vw;
+        width: 100%;
+        display: block;
+
+        margin-bottom: 10px;
+    }
+
+    .news-event-date {
+        font-size: 16px;
+    }
+
+    .news-event-companies {
+        font-size: 16px;
+    }
+
+    #news-events .sidebar-button {
+        font-size: 16px;
+    }
+}

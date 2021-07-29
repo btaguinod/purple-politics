@@ -14,6 +14,7 @@ export default class Header extends Component {
                         <input type="checkbox" id="button-checkbox" className="mobile" />
                         <div className="page-links mobile">
                             <Link className="page-link" to="/">Home</Link>
+                            <Link className="page-link" to="/events">Events</Link>
                             <Link className="page-link" to="/about">About</Link>
                         </div>
                         <span />
@@ -22,6 +23,7 @@ export default class Header extends Component {
                     </div>
                     <div className="page-links">
                         <Link className="page-link" to="/">Home</Link>
+                        <Link className="page-link" to="/events">Events</Link>
                         <Link className="page-link" to="/about">About</Link>
                     </div>
                 </div>

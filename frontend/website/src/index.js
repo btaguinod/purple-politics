@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from './Header/Header';
 import Footer from './Footer/Footer'
 import Home from './Home/Home';
+import NewsEvents from './NewsEvents/NewsEvents';
 import About from './About/About';
 import Articles from './Articles/Articles';
 import './index.css'
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Header />
       <Switch>
         <Route path="/about" component={About} />
+        <Route path="/events" component={NewsEvents} />
         <Route path="/articles/:eventId" component={Articles} />
         <Route path="/" component={Home} />
       </Switch>
