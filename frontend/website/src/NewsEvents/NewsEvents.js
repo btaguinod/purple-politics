@@ -45,7 +45,7 @@ export default function NewsEvents() {
                 setOrder={setOrder}
             />
             <div id="news-events">
-                <div id="news-events-heading">Events</div>
+                <div id="news-events-heading">All Events</div>
                 <Sidebar 
                     sort={sort}
                     sortOptions={sortOptions}

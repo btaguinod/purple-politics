@@ -333,6 +333,9 @@
         margin-top: 4px;
     }
     [class|=card-date] {
-        margin-bottom: 4px;
+        margin-top: 4px;
+    }
+    [class|=card-sources] {
+        margin-top: 4px;
     }
 }

@@ -64,11 +64,11 @@
     font-weight: 600;
     color: var(--gray);
 
-    margin: 6px 0;
+    margin: 4px 0;
 }
 
 .news-event-companies {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 400;
     color: var(--gray);
 }
@@ -89,14 +89,15 @@
 
     border-top-style: solid;
 }
+@media only screen and (max-width: 992px) {
+    #news-events {
+        grid-column: 1/span 8;
+    }
+}
 
 @media only screen and (max-width: 768px)  and (orientation: portrait) {
     #news-events-container {
         column-gap: 0vh;
-    }
-
-    #news-events {
-        grid-column: 1/span 8;
     }
 
     .news-event-base {
@@ -109,7 +110,7 @@
         width: 100%;
         display: block;
 
-        margin-bottom: 10px;
+        margin-bottom: 4px;
     }
 
     .news-event-date {
@@ -117,10 +118,10 @@
     }
 
     .news-event-companies {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     #news-events .sidebar-button {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
