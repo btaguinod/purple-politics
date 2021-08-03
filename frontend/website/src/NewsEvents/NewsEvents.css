@@ -38,13 +38,12 @@
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 16px;
-
-    align-items: start;
 }
 
 .news-event-base img {
     object-fit: cover;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     width: 150px;
     display: block;
 }
