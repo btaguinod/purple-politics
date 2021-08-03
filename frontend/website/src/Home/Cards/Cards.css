@@ -289,15 +289,19 @@
         flex-direction: column;
         justify-content: space-around;
     }
-    [class|=card-date] {
-        font-size: 16px;
-        font-weight: 600;
-    }
     #cards [class|=card-title] {
         font-size: 28px;
-        line-height: 32px;
+        line-height: 34px;
+    }
+    [class|=card-date] {
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 600;
     }
     [class|=card-sources] {
+        font-size: 14px;
+        line-height: 17px;
+
         display: block;
         height: auto;
     }
@@ -330,7 +334,7 @@
         width: 100%;
     }
     [class|=card-title] {
-        margin-top: 4px;
+        margin-top: 6px;
     }
     [class|=card-date] {
         margin-top: 4px;
