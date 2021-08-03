@@ -38,6 +38,8 @@
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 16px;
+
+    height: auto;
 }
 
 .news-event-base img {
