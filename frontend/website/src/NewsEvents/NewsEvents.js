@@ -47,13 +47,13 @@ export default function NewsEvents() {
             <div id="news-events">
                 <div id="news-events-heading">All Events</div>
                 <Sidebar 
-                    sort={sort}
-                    sortOptions={sortOptions}
-                    setSort={setSort}
-                    order={order}
-                    orderOptions={orderOptions}
-                    setOrder={setOrder}
-                    mobile={true}
+                        sort={sort}
+                        sortOptions={sortOptions}
+                        setSort={setSort}
+                        order={order}
+                        orderOptions={orderOptions}
+                        setOrder={setOrder}
+                        mobile={true}
                 />
                 {newsEvents.map(newsEvent =>
                     <NewsEvent key={newsEvent.eventId} newsEvent={newsEvent} />
