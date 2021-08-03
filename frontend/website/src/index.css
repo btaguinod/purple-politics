@@ -29,6 +29,7 @@ button {
 
 html {
     overflow-y: scroll;
+    height: 100%;
 }
 
 a {

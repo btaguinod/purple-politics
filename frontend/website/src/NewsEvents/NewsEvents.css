@@ -36,8 +36,6 @@
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 16px;
-
-    height: min-content;
 }
 
 .news-event-base img {
