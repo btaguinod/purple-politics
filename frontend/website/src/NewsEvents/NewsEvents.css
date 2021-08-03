@@ -118,12 +118,9 @@
         grid-template-columns: auto;
     }
 
-    .news-event-image img {
-        object-fit: cover;
+    .news-event-image {
         height: 50vw;
         width: 100%;
-        display: block;
-
         margin-bottom: 4px;
     }
 
