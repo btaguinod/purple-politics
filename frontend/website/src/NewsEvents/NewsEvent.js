@@ -11,13 +11,18 @@ const formatDate = dateString => {
 export default function NewsEvent(props) {
     let imageUrl = props.newsEvent.imageUrl
     let image
-    if (imageUrl)
-        image = <img src={props.newsEvent.imageUrl} alt="Event" />
+    if (imageUrl) {
+        image = (
+            <div className="news-event-image">
+                <img src={props.newsEvent.imageUrl} alt="Event" />
+            </div>
+        )
+    }
 
     let link = "articles/" + props.newsEvent.eventId; 
     return (
         <Link className="news-event-base" to={link}>
-                {image}
+            {image}
             <div className="news-event-text">
                 <div className="news-event-title">{props.newsEvent.title}</div>
                 <div className="news-event-date">

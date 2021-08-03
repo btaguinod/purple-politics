@@ -42,11 +42,16 @@
     align-items: center;
 }
 
-.news-event-base img {
+.news-event-image img {
     object-fit: cover;
-    height:100px;
-    width: 150px;
+    height: 100%;
+    width: 100%;
     display: block;
+}
+
+.news-event-image {
+    height: 100px;
+    width: 150px;
 }
 
 .news-event-text {
@@ -113,7 +118,7 @@
         grid-template-columns: auto;
     }
 
-    .news-event-base img {
+    .news-event-image img {
         object-fit: cover;
         height: 50vw;
         width: 100%;
