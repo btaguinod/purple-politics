@@ -54,30 +54,43 @@ export default function NewsEvents() {
         }
     }, [nextPageLoaded, allLoaded, page])
 
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
     }, [handleScroll])
+
+    const updateSort = newSort => {
+        setPage(1)
+        setNewsEvents([])
+        setSort(newSort)
+    }
+
+    const updateOrder = newOrder => {
+        setPage(1)
+        setNewsEvents([])
+        setOrder(newOrder)
+    }
 
     return (
         <div id="news-events-container">
             <Sidebar 
                 sort={sort}
                 sortOptions={sortOptions}
-                setSort={setSort}
+                setSort={updateSort}
                 order={order}
                 orderOptions={orderOptions}
-                setOrder={setOrder}
+                setOrder={updateOrder}
             />
             <div id="news-events">
                 <div id="news-events-heading">All Events</div>
                 <Sidebar 
                         sort={sort}
                         sortOptions={sortOptions}
-                        setSort={setSort}
+                        setSort={updateSort}
                         order={order}
                         orderOptions={orderOptions}
-                        setOrder={setOrder}
+                        setOrder={updateOrder}
                         mobile={true}
                 />
                 {newsEvents.map(newsEvent =>
