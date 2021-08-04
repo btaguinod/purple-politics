@@ -48,7 +48,7 @@ class Articles(Resource):
         articles = sorted(articles, key=key, reverse=(not ascending))
         return {
             'count': len(articles),
-            'articles': articles[:max_results * page]
+            'articles': articles[max_results * (page - 1):max_results * page]
         }
 
 
@@ -82,7 +82,7 @@ class Events(Resource):
 
         return {
             'count': len(events),
-            'events': events[:max_results * page]
+            'events': events[max_results * (page - 1):max_results * page]
         }
 
     def get_database_events(self):
