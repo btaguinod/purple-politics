@@ -14,7 +14,7 @@ const orderParams = {
     'Ascending': 'true',
     'Descending': 'false'
 }
-const maxResults = 7
+const maxResults = 20
 
 export default function NewsEvents() {
     const [newsEvents, setNewsEvents] = useState([])
