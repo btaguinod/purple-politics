@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import config from '../config'
 import NewsEvent from './NewsEvent'
 import Sidebar from '../Sidebar/Sidebar'
@@ -14,25 +14,50 @@ const orderParams = {
     'Ascending': 'true',
     'Descending': 'false'
 }
-const maxResults = 200
+const maxResults = 7
 
 export default function NewsEvents() {
     const [newsEvents, setNewsEvents] = useState([])
     const [sort, setSort] = useState('Date')
     const [order, setOrder] = useState('Descending')
 
+    const [allLoaded, setAllLoaded] = useState(false)
+    const [nextPageLoaded, setNextPageLoaded] = useState(false)
+    const [page, setPage] = useState(1)
+
     useEffect(() => {
-        let sortQuery = 'sort=' + sortParams[sort]
-        let orderQuery = 'ascending=' + orderParams[order]
-        let maxResultsQuery = 'max=' + maxResults
-        let queries = '?' + sortQuery + '&' + orderQuery + '&' + maxResultsQuery
+        let sortQuery = 'sort=' + sortParams[sort];
+        let orderQuery = 'ascending=' + orderParams[order];
+        let maxResultsQuery = 'max=' + maxResults;
+        let pageQuery = 'page=' + page;
+        let queries = '?' + sortQuery + '&' + orderQuery + '&' + maxResultsQuery + '&' + pageQuery;
         fetch(config.backendUrl + '/events' + queries)
             .then(response => response.json())
             .then(data => {
-                let dataNewsEvents = data['events']
-                setNewsEvents(dataNewsEvents);
+                let dataEvents = data['events']
+                setNewsEvents(prevEvents => prevEvents.concat(dataEvents));
+                setNextPageLoaded(true)
+                if (dataEvents.length < maxResults) 
+                    setAllLoaded(true);
             })
-    }, [order, sort])
+            .catch(error => console.error(error))
+    }, [order, sort, page])
+
+    const handleScroll = useCallback(() => {
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let distToBottom = document.documentElement.scrollHeight - 
+                           document.documentElement.clientHeight - 
+                           scrollTop;
+        if (distToBottom < 50 && !allLoaded && nextPageLoaded) {
+            setNextPageLoaded(false)
+            setPage(page + 1)
+        }
+    }, [nextPageLoaded, allLoaded, page])
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [handleScroll])
 
     return (
         <div id="news-events-container">
