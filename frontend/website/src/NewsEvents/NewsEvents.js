@@ -62,12 +62,14 @@ export default function NewsEvents() {
 
     const updateSort = newSort => {
         setPage(1)
+        setAllLoaded(false)
         setNewsEvents([])
         setSort(newSort)
     }
 
     const updateOrder = newOrder => {
         setPage(1)
+        setAllLoaded(false)
         setNewsEvents([])
         setOrder(newOrder)
     }

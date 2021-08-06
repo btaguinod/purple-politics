@@ -68,12 +68,14 @@ export default function Articles(props) {
 
     const updateSort = newSort => {
         setPage(1);
+        setAllLoaded(false);
         setArticles([]);
         setSort(newSort);
     };
 
     const updateOrder = newOrder => {
         setPage(1);
+        setAllLoaded(false);
         setArticles([]);
         setOrder(newOrder);
     };
