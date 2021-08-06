@@ -25,7 +25,7 @@ class Articles(Resource):
     DEFAULT_PARAMS = {
         'sort': 'time',
         'ascending': False,
-        'max': 10,
+        'max': 20,
         'page': 1
     }
 
@@ -57,7 +57,7 @@ class Events(Resource):
         'sort': 'latestTime',
         'ascending': False,
         'removeNoImg': False,
-        'max': 10,
+        'max': 20,
         'page': 1
     }
 
