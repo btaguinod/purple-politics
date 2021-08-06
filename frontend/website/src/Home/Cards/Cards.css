@@ -104,14 +104,16 @@
 
 [class|=card-sources] {
     font-size: 14px;
-    line-height: 14px;
+    line-height: 16px;
     font-weight: 400;
     color: var(--gray);
 
-    height: 28px;
+    height: auto;
 
     display: flex;
     align-items: center;
+
+    margin-top: 4px;
 }
 
 .card-base-sm {
