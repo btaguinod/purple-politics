@@ -20,7 +20,7 @@ class Database:
         collection (Collection): Collection of Event object info.
     """
 
-    def __init__(self, database_name: str = 'PurplePolitics',
+    def __init__(self, database_name: str = 'purplePolitics',
                  collection_name: str = 'events'):
         mongo_client = MongoClient(DB_CREDENTIALS)
         db = mongo_client.get_database(database_name)
@@ -33,7 +33,7 @@ class Database:
             list[Event]: Event objects from database.
         """
 
-        results = self.collection.find()
+        results = self.collection.find({"active": True})
         events = []
         for result in results:
             articles = []
@@ -62,7 +62,6 @@ class Database:
             events (list[Event]): Event objects.
         """
 
-        event_documents = []
         for event in events:
             article_dicts = []
             for article in event.articles:
@@ -81,11 +80,8 @@ class Database:
                         'bias': article.company.bias
                     }
                 })
-            event_dict = {
-                'eventId': event.event_id,
-                'articles': article_dicts
-            }
-            event_documents.append(event_dict)
             search_query = {'eventId': event.event_id}
-            update_query = {'$set': {'articles': article_dicts}}
+            update_query = {
+                '$set': {'articles': article_dicts, 'active': event.active}
+            }
             self.collection.update_one(search_query, update_query, True)
