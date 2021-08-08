@@ -167,7 +167,7 @@ class Clusterer:
                 latest_time = datetime.strptime(article.published_time,
                                                 '%Y-%m-%dT%H:%M:%SZ')
                 days_ago = (today - latest_time).days
-                if days_ago > self.cluster_threshold:
+                if days_ago > self.active_threshold:
                     event.active = False
 
             if event.active:
