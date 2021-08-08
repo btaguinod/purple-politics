@@ -29,7 +29,7 @@ class ArticleCollector:
         self.company = company
         self.url = url
 
-    def get_articles(self, max_articles: int, start_time: str = curr_time(-2),
+    def get_articles(self, max_articles: int, start_time: str = curr_time(-3),
                      end_time: str = curr_time(0)) -> list[Article]:
         """Get news articles using RSS feed.
 
