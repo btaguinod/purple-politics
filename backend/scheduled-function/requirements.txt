@@ -5,3 +5,4 @@ numpy
 nltk
 feedparser
 shortuuid
+algoliasearch

@@ -1,5 +1,6 @@
 from article_collector import ArticleCollector
 from company import companies
+from search_database import SearchDatabase
 from text_analyzer import TextAnalyzer
 from article_clusterer import Clusterer
 from database import Database
@@ -18,6 +19,7 @@ class ScheduledFunction:
         text_analyzer (TextAnalyzer): News text analyzer.
         database (Database): Event database.
         clusterer (Clusterer): Clusters Article objects into Event objects.
+        search_database (SearchDatabase): Search engine Event database.
     """
 
     COLLECTOR_MAX = 100
@@ -43,6 +45,7 @@ class ScheduledFunction:
         else:
             database_name = self.DATABASE_NAME
         self.database = Database(database_name, self.COLLECTION_NAME)
+        self.search_database = SearchDatabase()
 
     def main(self):
         """Collects, analyzes, clusters, and stores news articles."""
@@ -86,8 +89,14 @@ class ScheduledFunction:
         new_events = self.clusterer.get_events()
         print(f'Completed clustering with {len(new_events)} clusters:\n')
 
+        events = self.clusterer.get_events()
+
         print('Adding events to database')
-        self.database.update_events(self.clusterer.get_events())
+        self.database.update_events(events)
+        print()
+
+        print('Adding events to search database')
+        self.search_database.update(events)
         print('Done\n')
 
 
