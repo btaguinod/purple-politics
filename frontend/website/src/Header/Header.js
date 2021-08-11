@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import './Header.css'
+import React, { Component } from 'react';
+import './Header.css';
 import { Link } from "react-router-dom";
+import MobileButton from './MobileButton/MobileButton';
 
 export default class Header extends Component {
     render() {
@@ -10,17 +11,7 @@ export default class Header extends Component {
                     <Link id="logo" to="/">
                         <span id="purple">PURPLE</span> POLITICS
                     </Link>
-                    <div id="button">
-                        <input type="checkbox" id="button-checkbox" className="mobile" />
-                        <div className="page-links mobile">
-                            <Link className="page-link" to="/">Home</Link>
-                            <Link className="page-link" to="/events">Events</Link>
-                            <Link className="page-link" to="/about">About</Link>
-                        </div>
-                        <span />
-                        <span />
-                        <span />
-                    </div>
+                    <MobileButton />
                     <div className="page-links">
                         <Link className="page-link" to="/">Home</Link>
                         <Link className="page-link" to="/events">Events</Link>
@@ -28,6 +19,6 @@ export default class Header extends Component {
                     </div>
                 </div>
             </header>
-        )
+        );
     }
 }
