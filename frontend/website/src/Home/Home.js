@@ -13,11 +13,14 @@ export default class Home extends Component {
             cardEvents: [],
             headlineEvents: [],
             isLoaded: false
-        }
+        };
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
-        fetch(config.backendUrl + '/home-events')
+        const signal = this.abortController.signal;
+
+        fetch(config.backendUrl + '/home-events', {signal})
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -26,6 +29,11 @@ export default class Home extends Component {
                     isLoaded: true
                 });
             })
+            .catch(error => console.log(error))
+    }
+
+    componentWillUnmount() {
+        this.abortController.abort()
     }
 
     render() {

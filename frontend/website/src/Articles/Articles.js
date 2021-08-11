@@ -29,6 +29,9 @@ export default function Articles(props) {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        const abortController = new AbortController()
+        const signal = abortController.signal
+
         let eventId = props.match.params.eventId;
         let sortQuery = 'sort=' + sortParams[sort];
         let orderQuery = 'ascending=' + orderParams[order];
@@ -36,7 +39,7 @@ export default function Articles(props) {
         let pageQuery = 'page=' + page;
         let queries = '?' + sortQuery + '&' + orderQuery + '&' + pageQuery + 
             '&' + maxResultsQuery;
-        fetch(config.backendUrl + '/articles/' + eventId + queries)
+        fetch(config.backendUrl + '/articles/' + eventId + queries, {signal})
             .then(response => response.json())
             .then(data => {
                 let dataArticles = data['articles'];
@@ -47,6 +50,8 @@ export default function Articles(props) {
                 if (dataArticles.length < maxResults) 
                     setAllLoaded(true);
             });
+        
+        return () => abortController.abort()
     }, [order, sort, page, props.match.params.eventId]);
 
     const handleScroll = useCallback(() => {

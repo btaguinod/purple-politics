@@ -26,12 +26,15 @@ export default function NewsEvents() {
     const [page, setPage] = useState(1)
 
     useEffect(() => {
+        const abortController = new AbortController()
+        const signal = abortController.signal
+
         let sortQuery = 'sort=' + sortParams[sort];
         let orderQuery = 'ascending=' + orderParams[order];
         let maxResultsQuery = 'max=' + maxResults;
         let pageQuery = 'page=' + page;
         let queries = '?' + sortQuery + '&' + orderQuery + '&' + maxResultsQuery + '&' + pageQuery;
-        fetch(config.backendUrl + '/events' + queries)
+        fetch(config.backendUrl + '/events' + queries, {signal})
             .then(response => response.json())
             .then(data => {
                 let dataEvents = data['events']
@@ -40,7 +43,8 @@ export default function NewsEvents() {
                 if (dataEvents.length < maxResults) 
                     setAllLoaded(true);
             })
-            .catch(error => console.error(error))
+            .catch(error => console.log(error))
+        return () => abortController.abort()
     }, [order, sort, page])
 
     const handleScroll = useCallback(() => {
