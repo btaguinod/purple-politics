@@ -7,7 +7,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { 
     InstantSearch, 
     SearchBox, 
-    Hits, 
+    connectHits,
+    connectStateResults, 
     Highlight, 
     HitsPerPage
 } from 'react-instantsearch-dom';
@@ -18,7 +19,7 @@ const searchClient = algoliasearch(
     'fe38ea3aa2a7be0b8ac3b8e2f69476e4'
 )
 
-export const Hit = ({hit}) => {
+const Hit = ({hit}) => {
     let articleIndex = 0;
     for (;articleIndex < hit._highlightResult.articles.length; articleIndex++) {
         let article = hit._highlightResult.articles[articleIndex]
@@ -26,11 +27,33 @@ export const Hit = ({hit}) => {
             break;
     }
     return (
-        <Link to={'/articles/' + hit.objectID}>
+        <Link className="ais-Hits-item" to={'/articles/' + hit.objectID}>
             <Highlight attribute={`articles[${articleIndex}].title`} hit={hit}/>
         </Link>
     );
 };
+
+const CustomHits = ({hits}) => (
+    <div className="ais-Hits">
+        {hits.map(hit => <div key={hit.objectID}>{Hit({hit})}</div>)}
+        <a className="ais-Hits-img" href="https://www.algolia.com/">
+            <img 
+                src={`${process.env.PUBLIC_URL}/img/algolia.webp`} 
+                alt="Search by Algolia"
+            />
+        </a>
+    </div>
+);
+
+const Hits = connectHits(CustomHits);
+
+const Results = connectStateResults(({searchState}) =>
+    searchState && searchState.query ? (
+        <Hits hitComponent={Hit} />
+    ) : (
+        ""
+    )
+);
 
 export default function SearchBar(props) {
     const [showSearch, setShowSearch] = useState(props.className === 'mobile');
@@ -38,7 +61,7 @@ export default function SearchBar(props) {
     const handleBlur = event => {
         if (event.relatedTarget === null) {
             if (props.className !== 'mobile')
-                setShowSearch(false);
+                // setShowSearch(false);
             return;
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
@@ -52,7 +75,7 @@ export default function SearchBar(props) {
             <div className="search-bar"  onBlur={handleBlur}>
                 <SearchBox autoFocus={true} translations={{placeholder: 'Search Events'}} />
                 <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                <Hits hitComponent={Hit} />
+                <Results />
             </div>
         );
     } else {
