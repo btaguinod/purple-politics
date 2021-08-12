@@ -130,10 +130,6 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
 
-.ais-HitsPerPage {
-    display: none;
-}
-
 @media only screen and (max-width: 992px) {
     .search.mobile {
         display: none;

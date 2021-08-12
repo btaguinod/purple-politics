@@ -10,7 +10,7 @@ import {
     connectHits,
     connectStateResults, 
     Highlight, 
-    HitsPerPage
+    Configure
 } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch';
 
@@ -92,7 +92,7 @@ export default function SearchBar(props) {
             searchClient={searchClient}
             indexName="purple_politics"
         >
-            <HitsPerPage items={[]} defaultRefinement={5} />
+            <Configure hitsPerPage={5} />
             <div className={'search ' + props.className}>
                 {search}
             </div>
