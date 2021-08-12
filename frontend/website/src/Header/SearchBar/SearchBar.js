@@ -61,7 +61,7 @@ export default function SearchBar(props) {
     const handleBlur = event => {
         if (event.relatedTarget === null) {
             if (props.className !== 'mobile')
-                // setShowSearch(false);
+                setShowSearch(false);
             return;
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
