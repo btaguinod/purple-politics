@@ -1,0 +1,151 @@
+.search {
+    font-size: 24px;
+    
+    width: 100%;
+}
+
+.search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    height: 32px;
+    width: auto;
+    border-color: var(--near-black);
+    border-bottom-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+
+    color: var(--near-black);
+
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.search-bar .search-icon {
+    padding: 0 4px;
+    font-size: 18px;
+}
+
+.search-icon {
+    height: 100%;
+    display: block;
+    font-size: 24px;
+    float: right;
+
+    cursor: pointer;
+}
+
+.ais-SearchBox-input {
+    width: calc(100% - 22px);
+    height: 32px;
+    padding: unset;
+    padding-left: 8px;
+    border: none;
+    vertical-align: top;
+
+    font-size: 18px;
+    font-weight: 500;
+    font-family: Archivo;
+    color: var(--near-black);
+    background-color: inherit;
+}
+
+.ais-SearchBox-form {
+    height: 100%;
+}
+
+.ais-SearchBox {
+    width: calc(100% - 26px);
+    height: 32px;
+}
+
+.ais-SearchBox-input:focus {
+    outline: none;
+}
+
+.ais-SearchBox-reset {
+    height: 100%;
+    vertical-align: top;
+}
+
+.ais-SearchBox-submit {
+    display: none;
+}
+
+.ais-SearchBox-input {
+    margin: 0;
+}
+
+.ais-Hits-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+
+    box-shadow: 0px 12px 12px  rgba(0, 0, 0, 0.05);
+}
+
+.ais-Hits-item {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.ais-Hits-item a {
+    display: block;
+}
+
+.ais-Hits-item a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.ais-Highlight {
+    font-weight: 400;
+    display: block;
+    padding: 8px 12px;
+}
+
+.ais-Highlight:empty {
+    padding: 0;
+}
+
+.ais-Highlight-nonHighlighted {
+    color: var(--gray);
+}
+
+.ais-Highlight-highlighted {
+    color: var(--near-black);
+    font-style: normal;
+    font-weight: 500;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+
+    /* Remove default */
+    -webkit-appearance: none;
+}
+
+.ais-HitsPerPage {
+    display: none;
+}
+
+@media only screen and (max-width: 992px) {
+    .search.mobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+    .search.mobile {
+        display: block;
+        margin: 0 12px;
+    }
+
+    .ais-Hits-list {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 48px;
+        z-index: 1000;
+        box-shadow: 0px 12px 12px  rgba(0, 0, 0, 0.05);
+    }
+}
