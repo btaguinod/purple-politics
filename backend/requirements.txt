@@ -4,6 +4,7 @@ flask-cors
 flask-restful
 pymongo[srv]
 gunicorn
+algoliasearch
 
 # scheduled-function requirements
 requests
@@ -13,3 +14,4 @@ numpy
 nltk
 feedparser
 shortuuid
+algoliasearch
