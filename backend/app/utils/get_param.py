@@ -10,8 +10,8 @@ def get_param(param_name, default, is_valid, to_value, error_message):
     return to_value(param_string)
 
 
-def get_string_param(param_name: str, default: str, valid_words: list[str]) \
-        -> str:
+def get_string_param(param_name: str, default: str,
+                     valid_words: list[str] = None) -> str:
     """Get query parameter in form of string.
 
     Args:
@@ -19,11 +19,16 @@ def get_string_param(param_name: str, default: str, valid_words: list[str]) \
         default (str): Default value of parameter.
         valid_words (list[str]): List of valid strings.
     """
-    is_valid = valid_words.__contains__
+
+    def is_valid(string): return True
+    if valid_words is not None:
+        is_valid = valid_words.__contains__
 
     def to_value(string): return string
 
-    error_message = f'{param_name} should be: ' + ', '.join(valid_words)
+    error_message = 'problem with query'
+    if valid_words is not None:
+        error_message = f'{param_name} should be: ' + ', '.join(valid_words)
     return get_param(param_name, default, is_valid, to_value, error_message)
 
 

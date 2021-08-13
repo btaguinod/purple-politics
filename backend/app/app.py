@@ -1,15 +1,18 @@
 from flask import Flask
 from pymongo import MongoClient
 from flask_cors import CORS
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, abort
 from utils.get_param import get_int_param, get_bool_param, get_string_param
+from algoliasearch.search_client import SearchClient
 
 import os
 try:
-    from config import DB_CREDENTIALS
+    from config import DB_CREDENTIALS, ALGOLIA_ID, ALGOLIA_API_KEY
     origins = ['http://localhost:3000']
 except ImportError:
     DB_CREDENTIALS = os.environ['DB_CREDENTIALS']
+    ALGOLIA_ID = os.environ['ALGOLIA_ID']
+    ALGOLIA_API_KEY = os.environ['ALGOLIA_API_KEY']
     origins = ['https://purplepolitics.netlify.app']
 
 app = Flask(__name__)
@@ -17,9 +20,12 @@ app = Flask(__name__)
 CORS(app, origins=origins)
 api = Api(app)
 
-mongoClient = MongoClient(DB_CREDENTIALS)
-db = mongoClient.get_database('purplePolitics')
+mongo_client = MongoClient(DB_CREDENTIALS)
+db = mongo_client.get_database('purplePolitics')
 collection = db.get_collection('events')
+
+search_client = SearchClient.create(ALGOLIA_ID, ALGOLIA_API_KEY)
+search_index = search_client.init_index('purple_politics')
 
 class Articles(Resource):
     DEFAULT_PARAMS = {
@@ -54,6 +60,7 @@ class Articles(Resource):
 
 class Events(Resource):
     DEFAULT_PARAMS = {
+        'query': None,
         'sort': 'latestTime',
         'ascending': False,
         'removeNoImg': False,
@@ -61,19 +68,25 @@ class Events(Resource):
         'page': 1
     }
 
-    SORT_TYPES = ['latestTime', 'uniqueCompanies']
+    SORT_TYPES = ['relevance', 'latestTime', 'uniqueCompanies']
 
     def get(self):
         defaults = self.DEFAULT_PARAMS
 
+        query = get_string_param('query', defaults['query'])
         sort = get_string_param('sort', defaults['sort'], self.SORT_TYPES)
+        if sort == 'relevance' and query is None:
+            abort(400, message='Can\'t sort by relevance with no query')
         ascending = get_bool_param('ascending', defaults['ascending'])
         remove_no_img = get_bool_param('removeNoImg',
                                         defaults['removeNoImg'])
         max_results = get_int_param('max', defaults['max'])
         page = get_int_param('page', defaults['page'])
 
-        events = self.get_database_events()
+        if query is None:
+            events = self.get_database_events()
+        else:
+            events = self.get_search_events(query)
         events = self.sort_events(events, sort, ascending)
 
         if remove_no_img:
@@ -112,12 +125,23 @@ class Events(Resource):
             })
         return events
 
+    def get_search_events(self, query):
+        events = search_index.search(query, {'hitsPerPage': 1000})['hits']
+
+        for event in events:
+            event['eventId'] = event.pop('objectID')
+            event.pop('articles')
+            event.pop('companyCount')
+            event.pop('_highlightResult')
+        return events
+
     def sort_events(self, events, sort, ascending):
         if sort == 'uniqueCompanies':
             def key(event): return len(event['companies'])
+        elif sort == 'latestTime':
+            def key(event): return event['latestTime']
         else:
-            def key(event): return event[sort]
-
+            return events
         return sorted(events, key=key, reverse=(not ascending))
 
 

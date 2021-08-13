@@ -23,19 +23,37 @@ class SearchDatabase:
 
         eventDicts = []
         for event in events:
+            articles = event.articles
+            unique_companies = set(
+                [article.company.name for article in articles])
+            sorted_articles = sorted(articles,
+                                     key=lambda x: x.published_time)
+            earliest_article = sorted_articles[0]
+            latest_article = sorted_articles[-1]
+            image_url = ""
+            for article in sorted_articles:
+                if article.image_url != "":
+                    image_url = article.image_url
+                    break
+
             articleDicts = []
-            unique_companies = set()
             for article in event.articles:
                 articleDicts.append({
                     'title': article.title,
                     'description': article.description,
                     'image': article.image_url
                 })
-                unique_companies.add(article.company)
+
             eventDicts.append({
                 'objectID': event.event_id,
                 'articles': articleDicts,
-                'companyCount': len(unique_companies)
+                'companyCount': len(unique_companies),
+
+                'title': earliest_article.title,
+                'imageUrl': image_url,
+                'earliestTime': earliest_article.published_time,
+                'latestTime': latest_article.published_time,
+                'companies': list(unique_companies)
             })
 
         request_options = {'autoGenerateObjectIDIfNotExist': False}
