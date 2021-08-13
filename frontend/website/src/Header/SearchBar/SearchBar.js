@@ -21,7 +21,8 @@ const searchClient = algoliasearch(
 
 const Hit = ({hit}) => {
     let articleIndex = 0;
-    for (;articleIndex < hit._highlightResult.articles.length; articleIndex++) {
+    let articlesCount = hit._highlightResult.articles.length;
+    for (;articleIndex < articlesCount - 1; articleIndex++) {
         let article = hit._highlightResult.articles[articleIndex]
         if (article.title.matchLevel !== 'none')
             break;
@@ -35,7 +36,10 @@ const Hit = ({hit}) => {
 
 const CustomHits = ({hits}) => (
     <div className="ais-Hits">
-        {hits.map(hit => <div key={hit.objectID}>{Hit({hit})}</div>)}
+        {hits.length !== 0 ? 
+            hits.map(hit => <div key={hit.objectID}>{Hit({hit})}</div>) :
+            <div className="ais-Hits-empty">No events found</div>
+        }
         <a className="ais-Hits-img" href="https://www.algolia.com/">
             <img 
                 src={`${process.env.PUBLIC_URL}/img/algolia.webp`} 
@@ -47,15 +51,12 @@ const CustomHits = ({hits}) => (
 
 const Hits = connectHits(CustomHits);
 
-const Results = connectStateResults(({searchState}) =>
-    searchState && searchState.query ? (
-        <Hits hitComponent={Hit} />
-    ) : (
-        ""
-    )
-);
-
+const Results = connectStateResults(({searchState}) => (
+    searchState && searchState.query ? <Hits hitComponent={Hit} /> : ""
+));
 export default function SearchBar(props) {
+
+
     const [showSearch, setShowSearch] = useState(props.className === 'mobile');
 
     const handleBlur = event => {
@@ -66,6 +67,7 @@ export default function SearchBar(props) {
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
             window.location.href = event.relatedTarget.href;
+            setShowSearch(false);
         }
     };
 
@@ -73,16 +75,25 @@ export default function SearchBar(props) {
     if (showSearch) {
         search = (
             <div className="search-bar"  onBlur={handleBlur}>
-                <SearchBox autoFocus={true} translations={{placeholder: 'Search Events'}} />
-                <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                <SearchBox 
+                    autoFocus={true} 
+                    translations={{placeholder: 'Search Events'}}
+                    submit={<FontAwesomeIcon icon={faSearch}/>}
+                    onSubmit={event => {
+                        event.preventDefault();
+                        let value = event.target[0].value;
+                        if (value === '')
+                            return;
+                        window.location.href = '/events?query=' + value;
+                    }}
+                />
                 <Results />
             </div>
         );
     } else {
         search = (
             <FontAwesomeIcon 
-                icon={faSearch} 
-                className="search-icon"
+                icon={faSearch}
                 onClick={() => setShowSearch(true)}
             />
         );
