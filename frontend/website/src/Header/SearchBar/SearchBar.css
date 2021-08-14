@@ -26,6 +26,8 @@
     display: block;
     font-size: 24px;
     float: right;
+
+    cursor: pointer;
 }
 
 .ais-SearchBox {

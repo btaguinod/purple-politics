@@ -65,10 +65,9 @@ export default function SearchBar(props) {
                 setShowSearch(false);
             return;
         }
-        if (event.relatedTarget.tagName.toLowerCase() === 'a') {
+        if (event.relatedTarget.tagName.toLowerCase() === 'a') 
             window.location.href = event.relatedTarget.href;
-            setShowSearch(false);
-        }
+        
     };
 
     let search;
@@ -87,7 +86,7 @@ export default function SearchBar(props) {
                         window.location.href = '/events?query=' + value;
                     }}
                 />
-                <Results />
+                <Results onClick={handleBlur} />
             </div>
         );
     } else {
