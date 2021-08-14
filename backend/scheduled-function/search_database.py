@@ -1,5 +1,10 @@
+import os
 from algoliasearch.search_client import SearchClient
-from config import ALGOLIA_ID, ALGOLIA_API_KEY
+try:
+    from config import ALGOLIA_ID, ALGOLIA_API_KEY
+except ImportError:
+    ALGOLIA_ID = os.environ['ALGOLIA_ID']
+    ALGOLIA_API_KEY = os.environ['ALGOLIA_API_KEY']
 from event import Event
 
 
