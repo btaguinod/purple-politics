@@ -64,7 +64,11 @@ export default function SearchBar(props) {
             return;
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
+<<<<<<< HEAD
             event.nativeEvent.stopImmediatePropagation();
+=======
+            event.stopImmediatePropagation();
+>>>>>>> 8462b802785a6c07b5abfb69637021baba82909f
             window.location.href = event.relatedTarget.href;
         }
     };
