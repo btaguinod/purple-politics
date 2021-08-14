@@ -6,31 +6,54 @@ export default function Sidebar(props) {
     let order = props.order
     const orderOptions = props.orderOptions
 
-    const toButtons = (options, choice, updateParent) => {
-        return options.map(option => {
+    const toButtonList = (options, choice, updateParent, mobile) => (
+        options.map(option => {
             let className = "sidebar-button"
+
+            if (mobile) {
+                return (
+                    <option className={className} key={option}>{option}</option>
+                )
+            }
+
             if (option === choice)
                 className += " active"
-
-            return <button 
-                className={className}
-                key={option}
-                onClick={() => updateParent(option)}
-            >
-                {option}
-            </button>
+            
+            return (
+                <button 
+                    className={className}
+                    key={option}
+                    onClick={() => updateParent(option)}
+                >
+                    {option}
+                </button>
+            )
         })
-    }
+    )
+
+    const toButtons = (options, choice, updateParent, mobile) => {
+        if (mobile) {
+            return (
+                <select 
+                    className="sidebar-buttons" 
+                    onChange={event => updateParent(event.target.value)}
+                >
+                    {toButtonList(options, choice, updateParent, mobile)}
+                </select>
+            );
+        }
+        return (
+            <div className="sidebar-buttons">
+                {toButtonList(options, choice, updateParent, mobile)}
+            </div>
+        );
+    };
 
     return (
         <div className={'sidebar' + (props.mobile ? ' mobile' : '')}>
             <div className="sidebar-heading">Sort</div>
-            <div className="sidebar-buttons">
-                {toButtons(sortOptions, sort, props.setSort)}
-            </div>
-            <div className="sidebar-buttons">
-                {toButtons(orderOptions, order, props.setOrder)}
-            </div>
+            {toButtons(sortOptions, sort, props.setSort, props.mobile)}
+            {toButtons(orderOptions, order, props.setOrder, props.mobile)}
         </div>
     )
 }

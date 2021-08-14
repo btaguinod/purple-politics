@@ -75,33 +75,37 @@
 @media only screen and (max-width: 992px) {
     .sidebar {
         display: none;
-    }
-    .sidebar.mobile {
+
         position: relative;
         top: 0;
-        display: block;
         width: 100%;
         margin-bottom: -8px;
     }
     .sidebar-heading {
         display: inline;
-        padding-right: 8px;
+        padding: 0 8px 0 0;
     }
     .sidebar-buttons {
-        display: inline;
         padding: 0 4px;
-    }
-    .sidebar-button {
-        display: inline;
-        padding: 0 4px;
-    }
-    .sidebar-buttons::before {
-        border-left-style: solid;
-        border-top-style: none;
-    }
-    .sidebar.mobile::before {
-        content: "";
+        margin-right: 4px;
+        vertical-align: top;
 
+        height: 100%;
+        border-style: none;
+        box-sizing: border-box;
+
+        font-family: Archivo;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--near-black);
+
+        border-left: solid;
+        border-width: 1px;
+        border-color: var(--gray);
+    }
+    .sidebar::before {
+        content: "";
+    
         position: absolute;
         left: 4px;
         right: 4px;
@@ -118,9 +122,6 @@
 }
 
 @media only screen and (max-width: 768px)  and (orientation: portrait){
-    .sidebar-heading {
-        display: none;
-    }
     .sidebar-buttons:nth-child(2):before {
         border-left: none;
     }
