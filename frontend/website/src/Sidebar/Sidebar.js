@@ -1,4 +1,5 @@
-import './Sidebar.css'
+import Dropdown from './Dropdown/Dropdown';
+import './Sidebar.css';
 
 export default function Sidebar(props) {
     let sort = props.sort
@@ -9,13 +10,6 @@ export default function Sidebar(props) {
     const toButtonList = (options, choice, updateParent, mobile) => (
         options.map(option => {
             let className = "sidebar-button"
-
-            if (mobile) {
-                return (
-                    <option className={className} key={option}>{option}</option>
-                )
-            }
-
             if (option === choice)
                 className += " active"
             
@@ -34,17 +28,16 @@ export default function Sidebar(props) {
     const toButtons = (options, choice, updateParent, mobile) => {
         if (mobile) {
             return (
-                <select 
-                    className="sidebar-buttons" 
-                    onChange={event => updateParent(event.target.value)}
-                >
-                    {toButtonList(options, choice, updateParent, mobile)}
-                </select>
+                <Dropdown
+                    options={options}
+                    choice={choice}
+                    updateParent={updateParent}
+                />
             );
         }
         return (
             <div className="sidebar-buttons">
-                {toButtonList(options, choice, updateParent, mobile)}
+                {toButtonList(options, choice, updateParent)}
             </div>
         );
     };
