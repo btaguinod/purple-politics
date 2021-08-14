@@ -55,8 +55,6 @@ const Results = connectStateResults(({searchState}) => (
     searchState && searchState.query ? <Hits hitComponent={Hit} /> : ""
 ));
 export default function SearchBar(props) {
-
-
     const [showSearch, setShowSearch] = useState(props.className === 'mobile');
 
     const handleBlur = event => {
@@ -68,10 +66,10 @@ export default function SearchBar(props) {
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
             event.preventDefault()
             window.location.href = event.relatedTarget.href;
-            setShowSearch(false);
+            if (props.classname === 'mobile') {
+                window.location.reload();
+            }
         }
-            
-        
     };
 
     let search;
