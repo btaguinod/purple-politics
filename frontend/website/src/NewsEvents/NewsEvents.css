@@ -72,7 +72,7 @@
     text-decoration-color: rgba(0, 0, 0, 0);
 }
 
-.news-event-title:hover {
+.news-event-base:hover .news-event-title {
     text-decoration-color: var(--purple);
 }
 
