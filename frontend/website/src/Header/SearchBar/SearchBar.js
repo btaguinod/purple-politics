@@ -66,6 +66,7 @@ export default function SearchBar(props) {
             return;
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
+            event.preventDefault()
             window.location.href = event.relatedTarget.href;
             setShowSearch(false);
         }
