@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class Card extends Component {
-    static titleSizes = {115: 'xs', 100:'sm', 90:'md', 60:'lg', 45:'xl'}
+    static titleSizes = {115: 'xs', 100:'sm',85:'md', 65:'lg', 45:'xl'}
     constructor(props) {
         super(props);
         let titleLength = this.props.event.title.length;
