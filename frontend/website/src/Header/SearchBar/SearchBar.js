@@ -65,10 +65,8 @@ export default function SearchBar(props) {
         }
         if (event.relatedTarget.tagName.toLowerCase() === 'a') {
             event.preventDefault()
+            document.location.href = event.relatedTarget.href;
             window.location.href = event.relatedTarget.href;
-            if (props.classname === 'mobile') {
-                window.location.reload();
-            }
         }
     };
 
