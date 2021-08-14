@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './SearchBar.css';
 
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { 
@@ -27,10 +26,11 @@ const Hit = ({hit}) => {
         if (article.title.matchLevel !== 'none')
             break;
     }
+    let href = window.location.origin + '/articles/' + hit.objectID
     return (
-        <Link className="ais-Hits-item" to={'/articles/' + hit.objectID}>
+        <a className="ais-Hits-item" href={href}>
             <Highlight attribute={`articles[${articleIndex}].title`} hit={hit}/>
-        </Link>
+        </a>
     );
 };
 
@@ -85,7 +85,7 @@ export default function SearchBar(props) {
                         window.location.href = '/events?query=' + value;
                     }}
                 />
-                <Results onClick={handleBlur} />
+                <Results />
             </div>
         );
     } else {
