@@ -19,7 +19,11 @@ Text Emotion and Sentiment: [IBM Watson Natural Language Understanding](https://
 
 News Clustering Algorithm: [Research Paper](https://www.researchgate.net/publication/258028563_Incremental_Clustering_of_News_Reports)
 
+Search Engine: [Algolia](https://www.algolia.com)
+
 ## Versions
 **v1.0:** Initial release.
 
-**v1.1:** Added Events page.
+**v1.1:** Added events page.
+
+**v1.2** Added search.
