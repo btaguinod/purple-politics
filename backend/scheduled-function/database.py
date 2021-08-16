@@ -26,7 +26,7 @@ class Database:
         db = mongo_client.get_database(database_name)
         self.collection = db.get_collection(collection_name)
 
-    def get_events(self, only_active: True) -> list[Event]:
+    def get_events(self, only_active: bool = True) -> list[Event]:
         """Retrieves Event objects from database.
 
         Returns:
