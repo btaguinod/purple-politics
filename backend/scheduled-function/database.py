@@ -26,14 +26,14 @@ class Database:
         db = mongo_client.get_database(database_name)
         self.collection = db.get_collection(collection_name)
 
-    def get_events(self) -> list[Event]:
+    def get_events(self, only_active: True) -> list[Event]:
         """Retrieves Event objects from database.
 
         Returns:
             list[Event]: Event objects from database.
         """
-
-        results = self.collection.find({"active": True})
+        filter = {'active': True} if only_active else {}
+        results = self.collection.find({})
         events = []
         for result in results:
             articles = []
