@@ -33,7 +33,7 @@ class Database:
             list[Event]: Event objects from database.
         """
         filter_args = {'active': True} if only_active else {}
-        results = self.collection.find({})
+        results = self.collection.find(filter_args)
         events = []
         for result in results:
             articles = []
