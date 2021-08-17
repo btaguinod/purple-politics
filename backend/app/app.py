@@ -13,7 +13,8 @@ except ImportError:
     DB_CREDENTIALS = os.environ['DB_CREDENTIALS']
     ALGOLIA_ID = os.environ['ALGOLIA_ID']
     ALGOLIA_API_KEY = os.environ['ALGOLIA_API_KEY']
-    origins = ['https://purplepolitics.netlify.app']
+    origins = ['https://purplepolitics.netlify.app',
+               'https://purplepoliticsevents.com']
 
 app = Flask(__name__)
 
