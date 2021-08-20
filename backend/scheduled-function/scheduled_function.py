@@ -24,7 +24,7 @@ class ScheduledFunction:
 
     COLLECTOR_MAX = 100
     CLUSTERER_THRESHOLD = 0.3
-    ACTIVE_THRESHOLD = 60
+    ACTIVE_THRESHOLD = 21
     DATABASE_NAME = 'purplePolitics'
     COLLECTION_NAME = 'events'
 
