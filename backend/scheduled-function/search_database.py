@@ -44,9 +44,7 @@ class SearchDatabase:
             articleDicts = []
             for article in event.articles:
                 articleDicts.append({
-                    'title': article.title,
-                    'description': article.description,
-                    'image': article.image_url
+                    'title': article.title
                 })
 
             eventDicts.append({
