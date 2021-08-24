@@ -23,7 +23,7 @@ api = Api(app)
 
 mongo_client = MongoClient(DB_CREDENTIALS)
 db = mongo_client.get_database('purplePolitics')
-collection = db.get_collection('newEvents2')
+collection = db.get_collection('events')
 
 search_client = SearchClient.create(ALGOLIA_ID, ALGOLIA_API_KEY)
 search_index = search_client.init_index('purple_politics')
