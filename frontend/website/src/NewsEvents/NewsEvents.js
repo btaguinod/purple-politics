@@ -27,7 +27,7 @@ export default function NewsEvents(props) {
     const query = useQuery();
 
     const [newsEvents, setNewsEvents] = useState([]);
-    const [sort, setSort] = useState(query ? 'Relevance' : 'Companies');
+    const [sort, setSort] = useState(query ? 'Relevance' : 'Date');
     const [order, setOrder] = useState('Descending');
 
     const [allLoaded, setAllLoaded] = useState(false);
@@ -35,7 +35,7 @@ export default function NewsEvents(props) {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        setSort(query ? 'Relevance' : 'Companies')
+        setSort(query ? 'Relevance' : 'Date')
     }, [query])
 
     useEffect(() => {
