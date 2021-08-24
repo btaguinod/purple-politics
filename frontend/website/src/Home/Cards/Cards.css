@@ -71,8 +71,8 @@
 }
 
 [class|=card-title].title-xs {
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 36px;
+    line-height: 40px;
 }
 
 [class|=card-title].title-sm {
@@ -130,10 +130,14 @@
     height: 43%;
 }
 
+.card-title-sm.title-xs {
+    font-size: 16px;
+    line-height: 18px;
+}
 
 .card-title-sm.title-sm {
-    font-size: 19px;
-    line-height: 22px;
+    font-size: 17px;
+    line-height: 20px;
 }
 
 .card-title-sm.title-md {
