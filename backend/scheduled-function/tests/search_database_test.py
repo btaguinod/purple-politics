@@ -9,6 +9,7 @@ class SearchDatabaseTestCase(unittest.TestCase):
         database = Database('purplePolitics', 'events')
         events = database.get_events(False)
         search_database = SearchDatabase()
+        search_database.clear()
         search_database.update(events)
 
 

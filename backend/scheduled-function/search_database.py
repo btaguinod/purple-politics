@@ -61,3 +61,10 @@ class SearchDatabase:
 
         request_options = {'autoGenerateObjectIDIfNotExist': False}
         self.index.save_objects(eventDicts, request_options)
+
+    def clear(self):
+        """Delete all events in the search database."""
+
+        self.index.clear_objects()
+
+
