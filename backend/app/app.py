@@ -23,7 +23,7 @@ api = Api(app)
 
 mongo_client = MongoClient(DB_CREDENTIALS)
 db = mongo_client.get_database('purplePolitics')
-collection = db.get_collection('events')
+collection = db.get_collection('newEvents2')
 
 search_client = SearchClient.create(ALGOLIA_ID, ALGOLIA_API_KEY)
 search_index = search_client.init_index('purple_politics')
@@ -148,7 +148,7 @@ class Events(Resource):
 
 class HomeEvents(Events):
     DEFAULT_PARAMS = {
-        'cardsSort': 'uniqueCompanies',
+        'cardsSort': 'latestTime',
         'cardsAscending': False,
         'cardsRemoveNoImg': True,
         'cardsMax': 30,
@@ -182,7 +182,8 @@ class HomeEvents(Events):
 
         events = self.get_database_events()
 
-        card_events = self.sort_events(events, cards_sort, cards_ascending)
+        card_events = filter(lambda x: len(x['companies']) >= 4, events)
+        card_events = self.sort_events(card_events, cards_sort, cards_ascending)
         headline_events = self.sort_events(events, headlines_sort,
                                            headlines_ascending)
 
