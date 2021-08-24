@@ -9,19 +9,30 @@ export default function Sidebar(props) {
 
     const toButtonList = (options, choice, updateParent, mobile) => (
         options.map(option => {
-            let className = "sidebar-button"
-            if (option === choice)
-                className += " active"
+            let button;
+            if (option === choice) {
+                button = (
+                    <div 
+                        className="sidebar-button active"
+                        key={option}
+                    >
+                        {option}
+                    </div>
+                );
+            } else {
+                button = (
+                    <button 
+                        className={"sidebar-button"}
+                        key={option}
+                        onClick={ () => updateParent(option)}
+                    >
+                        {option}
+                    </button>
+                );
+            }
+                
             
-            return (
-                <button 
-                    className={className}
-                    key={option}
-                    onClick={() => updateParent(option)}
-                >
-                    {option}
-                </button>
-            )
+            return button;
         })
     )
 

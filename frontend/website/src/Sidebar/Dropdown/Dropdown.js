@@ -13,16 +13,33 @@ export default function Dropdown(props) {
         setActive(false)
     }
 
-    let options = props.options.map(option => (
-        <button 
-            className={'dropdown-option' + (props.choice === option ? ' active' : '')} 
-            key={option}
-            onClick={() => handleClick(option)}
-            onBlur={() => setActive(false)}
-        >
-            {option}
-        </button>
-    ))
+    let options = props.options.map(option => {
+        let button;
+        if (props.choice === option) {
+            button = (
+                <button 
+                    className="dropdown-option active"
+                    key={option}
+                    onClick={() => setActive(false)}
+                    onBlur={() => setActive(false)}
+                >
+                    {option}
+                </button>
+            )
+        } else {
+            button = (
+                <button 
+                    className="dropdown-option" 
+                    key={option}
+                    onClick={() => handleClick(option)}
+                    onBlur={() => setActive(false)}
+                >
+                    {option}
+                </button>
+            )
+        }
+        return button
+    })
 
     return (
         <div className="dropdown">
