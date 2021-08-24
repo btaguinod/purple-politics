@@ -146,7 +146,7 @@ class Clusterer:
     """
 
     def __init__(self, cluster_threshold: float = 0.3,
-                 active_threshold: int = 60):
+                 active_threshold: int = 2):
         self.cluster_threshold = cluster_threshold
         self.active_threshold = active_threshold
         self.clusters = []
@@ -162,21 +162,10 @@ class Clusterer:
 
         today = datetime.today()
         for event in events:
-            if event.active:
-                article = max(event.articles, key=lambda x: x.published_time)
-                latest_time = datetime.strptime(article.published_time,
-                                                '%Y-%m-%dT%H:%M:%SZ')
-                days_ago = (today - latest_time).days
-                if days_ago > self.active_threshold:
-                    event.active = False
-
-            if event.active:
-                nlp_articles = []
-                for article in event.articles:
-                    nlp_articles.append(NLPArticle(article))
-                self.clusters.append(Cluster(nlp_articles, event.event_id))
-            else:
-                self.inactive_events.append(event)
+            nlp_articles = []
+            for article in event.articles:
+                nlp_articles.append(NLPArticle(article))
+            self.clusters.append(Cluster(nlp_articles, event.event_id))
 
         for cluster in self.clusters:
             for nlp_article in cluster.nlp_articles:
@@ -194,6 +183,7 @@ class Clusterer:
             articles (list[Article]): Article objects.
         """
 
+        articles = sorted(articles, key=lambda x: x.published_time)
         nlp_articles = [NLPArticle(article) for article in articles]
         for nlp_article in nlp_articles:
             self.index = nlp_article.set_tf_vector(self.index)
@@ -213,12 +203,32 @@ class Clusterer:
             closest_dist = 0
             closest_cluster = None
 
-            for cluster in self.clusters:
+            for cluster in self.clusters.copy():
+                article_time = datetime.strptime(
+                    nlp_article.article.published_time,
+                    '%Y-%m-%dT%H:%M:%SZ'
+                )
+                cluster_article = max(
+                    cluster.nlp_articles,
+                    key=lambda x: x.article.published_time
+                ).article
+                cluster_article_time = datetime.strptime(
+                    cluster_article.published_time,
+                    '%Y-%m-%dT%H:%M:%SZ'
+                )
+                days_difference = (article_time - cluster_article_time).days
+                if days_difference > self.active_threshold:
+                    event = cluster.get_event()
+                    event.active = False
+                    self.inactive_events.append(event)
+                    self.clusters.remove(cluster)
+                    continue
+
                 new_dist = vector_similarity(
                     np.multiply(nlp_article.vector, inv_doc_freq),
                     np.multiply(cluster.vector, inv_doc_freq))
-                threshold = self.cluster_threshold
-                if new_dist > threshold and new_dist > closest_dist:
+
+                if new_dist > self.cluster_threshold and new_dist > closest_dist:
                     closest_dist = new_dist
                     closest_cluster = cluster
 
@@ -282,4 +292,4 @@ def vector_similarity(a: np.ndarray, b: np.ndarray) -> float:
         float: Cosine similarity.
     """
 
-    return (a @ b) / (np.linalg.norm(b) * np.linalg.norm(b))
+    return (a @ b) / (np.linalg.norm(a) * np.linalg.norm(b))
