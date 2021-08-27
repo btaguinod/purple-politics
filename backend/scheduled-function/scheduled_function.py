@@ -26,7 +26,7 @@ class ScheduledFunction:
 
     COLLECTOR_MAX = 100
     CLUSTERER_THRESHOLD = 0.3
-    ACTIVE_THRESHOLD = 2
+    ACTIVE_THRESHOLD = 3
     DATABASE_NAME = 'purplePolitics'
     COLLECTION_NAME = 'events'
 
@@ -101,9 +101,10 @@ class ScheduledFunction:
         self.database.update_events(events)
         print()
 
-        print('Adding events to search database')
-        self.search_database.update(events)
-        print('Done\n')
+        if not self.testing_mode:
+            print('Adding events to search database')
+            self.search_database.update(events)
+            print('Done\n')
 
 
 def to_boolean(text: str):
