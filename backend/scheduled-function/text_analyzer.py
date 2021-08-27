@@ -20,6 +20,8 @@ class TextAnalyzer:
         units (int): Usage units from IBM api.
     """
 
+    EXTRA_ATTEMPTS = 2
+
     def __init__(self):
         self.units = 0
 
@@ -59,11 +61,48 @@ class TextAnalyzer:
 
             return TextInfo(sentiment, emotion)
 
+    def analyze_url(self, url: str) -> TextInfo:
+        """Gets emotion and sentiment from text in url.
 
+        Args:
+            url (str): Url containing text to analyze.
 
+        Returns:
+            TextInfo: Information about texts.
+        """
+        def send_request():
+            return requests.get(
+                IBM_URL,
+                params={
+                    'version': '2021-03-25',
+                    'url': url,
+                    'features': 'sentiment,emotion'
+                },
+                headers={'Content-Type': 'application/json'},
+                auth=('apikey', IBM_API_KEY)
+            )
+        try:
+            response = send_request()
+            if response.status_code == 400:
+                for _ in range(self.EXTRA_ATTEMPTS):
+                    send_request()
+                    if response.status_code == 200:
+                        break
+            response.raise_for_status()
+        except HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err} with {url}')
+            raise http_err
+        except Exception as err:
+            print(f'Other error occurred: {err} with {url}')
+            raise err
+        else:
+            response_dict = response.json()
+            sentiment = response_dict['sentiment']['document']['score']
+            emotions = response_dict['emotion']['document']['emotion']
+            emotion = max(emotions, key=emotions.get)
 
+            usage = response_dict['usage']
+            self.units += usage['text_units'] * usage['features']
 
-
-
-
+            return TextInfo(sentiment, emotion)
 

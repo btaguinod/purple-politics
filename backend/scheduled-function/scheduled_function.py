@@ -10,6 +10,8 @@ import argparse
 
 from text_info import TextInfo
 
+from requests.exceptions import HTTPError
+
 
 class ScheduledFunction:
     """Function that collects, analyzes, clusters, and stores news articles.
@@ -79,8 +81,12 @@ class ScheduledFunction:
             if self.testing_mode:
                 article.text_info = TextInfo(0, 'TestTextInfo')
                 continue
-            article_text = article.title + ' ' + article.description
-            article.text_info = self.text_analyzer.analyze_text(article_text)
+            try:
+                url = article.article_url
+                article.text_info = self.text_analyzer.analyze_url(url)
+            except HTTPError:
+                text = article.title + ' ' + article.description
+                article.text_info = self.text_analyzer.analyze_text(text)
         print(f'Used {self.text_analyzer.units} units\n')
 
         print(f'Adding articles to {len(events)} clusters:')
