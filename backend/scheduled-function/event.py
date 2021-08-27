@@ -12,7 +12,8 @@ class Event:
         active (bool): Whether or not event should be updated with articles.
     """
 
-    def __init__(self, articles: list[Article], event_id: str = None):
+    def __init__(self, articles: list[Article], event_id: str = None,
+                 active: bool = True):
         self.articles = articles
         self.event_id = str(shortuuid.uuid()) if event_id is None else event_id
-        self.active = True
+        self.active = active

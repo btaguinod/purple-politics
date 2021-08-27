@@ -51,7 +51,8 @@ class Database:
                 ))
             events.append(Event(
                 articles,
-                result['eventId']
+                result['eventId'],
+                result['active']
             ))
         return events
 
