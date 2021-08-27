@@ -85,3 +85,7 @@ class Database:
                 '$set': {'articles': article_dicts, 'active': event.active}
             }
             self.collection.update_one(search_query, update_query, True)
+
+    def clear_events(self):
+        """Deletes all Event objects from database."""
+        self.collection.drop()
