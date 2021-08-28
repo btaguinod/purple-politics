@@ -34,13 +34,9 @@ class Article:
                self.image_url
 
     def __hash__(self) -> int:
-        return hash((self.title, self.description, self.article_url))
+        return hash(self.article_url)
 
     def __eq__(self, o: object) -> bool:
         if isinstance(o, Article):
-            return (
-                self.title == o.title and
-                self.description == o.description and
-                self.article_url == o.article_url
-            )
+            return self.article_url == o.article_url
         return False
