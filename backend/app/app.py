@@ -182,7 +182,7 @@ class HomeEvents(Events):
 
         events = self.get_database_events()
 
-        card_events = filter(lambda x: len(x['companies']) >= 4, events)
+        card_events = filter(lambda x: len(x['companies']) >= 3, events)
         card_events = self.sort_events(card_events, cards_sort, cards_ascending)
         headline_events = self.sort_events(events, headlines_sort,
                                            headlines_ascending)
