@@ -6,3 +6,4 @@ nltk
 feedparser
 shortuuid
 algoliasearch
+Pillow

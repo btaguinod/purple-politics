@@ -1,7 +1,11 @@
+from requests.exceptions import HTTPError, MissingSchema
+
 from article import Article
 import feedparser
 import time
 from datetime import datetime, timedelta, timezone
+import requests
+from PIL import Image, UnidentifiedImageError
 
 
 def curr_time(offset: int = 0) -> str:
@@ -55,6 +59,8 @@ class ArticleCollector:
             description = self.remove_html_tags(entry['summary'])
             article_url = entry['link']
             image_url = self.get_image_url(entry)
+            if not self.is_valid_image(image_url):
+                image_url = ''
             article = Article(self.company, title, description, published_time,
                               article_url, image_url)
             articles.append(article)
@@ -88,3 +94,12 @@ class ArticleCollector:
                     image_size = float('inf')
                 image_sizes[media['url']] = image_size
         return max(image_sizes, key=image_sizes.get)
+
+    @staticmethod
+    def is_valid_image(image_url: str) -> bool:
+        try:
+            Image.open(requests.get(image_url, stream=True).raw)
+            return True
+        except (HTTPError, MissingSchema, UnidentifiedImageError):
+            return False
+
