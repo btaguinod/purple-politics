@@ -5,7 +5,7 @@ export default function Footer() {
         <div id="footer">
             <div>
                 Created by {" "}
-                <a href="https://btaguinod.netlify.app/">Benedict Taguinod</a>
+                <a href="https://benedict-taguinod.com/">Benedict Taguinod</a>
             </div>
             <div>
                 <a href="https://github.com/btaguinod/purple-politics">Source Code</a>
