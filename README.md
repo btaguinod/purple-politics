@@ -1,4 +1,4 @@
-# Purple Politics [(Website)](https://purplepolitics.netlify.app/)
+# Purple Politics [(Website)](https://purplepoliticsevents.com/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/234cb037-2206-4eef-82c7-7a27418a5566/deploy-status)](https://app.netlify.com/sites/purplepolitics/deploys)
 ## Purpose
 
